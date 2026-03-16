@@ -7,570 +7,144 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Menú Semanal">
 <meta name="theme-color" content="#3B6D11">
-<meta name="description" content="Planifica tu semana con ofertas Jumbo y tu despensa">
-
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
-<link rel="apple-touch-startup-image" href="icons/icon-512.png">
-
 <title>Menú Semanal</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
-
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-
-:root {
-  --verde: #3B6D11;
-  --verde-light: #EAF3DE;
-  --verde-mid: #639922;
-  --verde-dark: #27500A;
-  --rojo: #D85A30;
-  --rojo-light: #FAECE7;
-  --amber: #BA7517;
-  --amber-light: #FAEEDA;
-  --gris: #888780;
-  --gris-light: #F1EFE8;
-  --blue: #185FA5;
-  --blue-light: #E6F1FB;
-  --text: #1a1a18;
-  --text-2: #5F5E5A;
-  --text-3: #888780;
-  --bg: #fafaf8;
-  --bg-2: #f3f2ef;
-  --bg-3: #eceae4;
-  --border: rgba(60,55,45,0.12);
-  --border-2: rgba(60,55,45,0.22);
-  --radius: 12px;
-  --radius-sm: 8px;
-  --safe-bottom: env(safe-area-inset-bottom, 0px);
-  --safe-top: env(safe-area-inset-top, 0px);
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --v:#3B6D11;--vl:#EAF3DE;--vm:#639922;--vd:#27500A;
+  --r:#D85A30;--rl:#FAECE7;
+  --a:#BA7517;--al:#FAEEDA;
+  --b:#185FA5;--bl:#E6F1FB;
+  --g:#888780;--gl:#F1EFE8;
+  --pk:#993356;--pkl:#FBEAF0;
+  --t:#1a1a18;--t2:#5F5E5A;--t3:#888780;
+  --bg:#fafaf8;--bg2:#f3f2ef;--bg3:#eceae4;
+  --bd:rgba(60,55,45,0.12);--bd2:rgba(60,55,45,0.22);
+  --rad:12px;--rads:8px;
+  --sb:env(safe-area-inset-bottom,0px);--st:env(safe-area-inset-top,0px);
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #f0ede6;
-    --text-2: #b4b2a9;
-    --text-3: #888780;
-    --bg: #1c1c1a;
-    --bg-2: #242420;
-    --bg-3: #2c2c28;
-    --border: rgba(255,255,255,0.1);
-    --border-2: rgba(255,255,255,0.18);
-    --verde-light: #1a2e0a;
-    --rojo-light: #2e1208;
-    --amber-light: #2a1a04;
-    --blue-light: #0a1828;
-  }
-}
-
-html, body {
-  height: 100%;
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
-  overscroll-behavior: none;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* ===== LAYOUT ===== */
-.app {
-  display: flex;
-  flex-direction: column;
-  height: 100dvh;
-  max-width: 500px;
-  margin: 0 auto;
-  position: relative;
-}
-
-.app-header {
-  flex-shrink: 0;
-  padding: calc(var(--safe-top) + 14px) 20px 14px;
-  background: var(--bg);
-  border-bottom: 0.5px solid var(--border);
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.logo {
-  width: 40px;
-  height: 40px;
-  background: var(--verde-light);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  flex-shrink: 0;
-}
-
-.app-title { font-family: 'Fraunces', serif; font-size: 20px; font-weight: 500; color: var(--text); }
-.app-sub { font-size: 12px; color: var(--text-3); margin-top: 1px; }
-
-.content {
-  flex: 1;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  padding: 16px 16px calc(var(--safe-bottom) + 80px);
-}
-
-/* ===== BOTTOM NAV ===== */
-.bottom-nav {
-  flex-shrink: 0;
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 500px;
-  background: var(--bg);
-  border-top: 0.5px solid var(--border);
-  display: flex;
-  padding-bottom: var(--safe-bottom);
-  z-index: 100;
-}
-
-.nav-item {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 4px;
-  border: none;
-  background: none;
-  cursor: pointer;
-  color: var(--text-3);
-  font-size: 10px;
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 500;
-  gap: 3px;
-  transition: color 0.15s;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.nav-item.active { color: var(--verde); }
-
-.nav-icon {
-  width: 24px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-}
-
-.nav-dot {
-  width: 4px; height: 4px;
-  border-radius: 50%;
-  background: var(--verde);
-  margin-top: 2px;
-  opacity: 0;
-  transition: opacity 0.15s;
-}
-.nav-item.active .nav-dot { opacity: 1; }
-
-/* ===== PANELS ===== */
-.panel { display: none; }
-.panel.active { display: block; }
-
-/* ===== SHARED COMPONENTS ===== */
-.section-title {
-  font-family: 'Fraunces', serif;
-  font-size: 20px;
-  font-weight: 500;
-  color: var(--text);
-  margin-bottom: 4px;
-}
-
-.section-sub { font-size: 13px; color: var(--text-3); margin-bottom: 16px; }
-
-.card {
-  background: var(--bg);
-  border: 0.5px solid var(--border);
-  border-radius: var(--radius);
-  padding: 14px 16px;
-  margin-bottom: 10px;
-}
-
-.btn {
-  width: 100%;
-  padding: 13px 16px;
-  border-radius: var(--radius-sm);
-  font-size: 15px;
-  font-weight: 500;
-  font-family: 'DM Sans', sans-serif;
-  cursor: pointer;
-  border: none;
-  transition: opacity 0.15s, transform 0.1s;
-  -webkit-tap-highlight-color: transparent;
-}
-.btn:active { transform: scale(0.98); }
-
-.btn-green { background: var(--verde); color: white; }
-.btn-green:disabled { opacity: 0.4; cursor: not-allowed; }
-
-.btn-outline {
-  background: transparent;
-  color: var(--text);
-  border: 0.5px solid var(--border-2);
-}
-
-.badge {
-  display: inline-flex;
-  align-items: center;
-  font-size: 11px;
-  font-weight: 500;
-  padding: 3px 8px;
-  border-radius: var(--radius-sm);
-}
-
-.badge-green { background: var(--verde-light); color: var(--verde); }
-.badge-red { background: var(--rojo-light); color: var(--rojo); }
-.badge-amber { background: var(--amber-light); color: var(--amber); }
-.badge-blue { background: var(--blue-light); color: var(--blue); }
-.badge-gray { background: var(--gris-light); color: var(--gris); }
-
-.label {
-  font-size: 11px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--text-3);
-  margin-bottom: 8px;
-}
-
-input[type="text"], select, textarea {
-  width: 100%;
-  padding: 11px 14px;
-  border: 0.5px solid var(--border-2);
-  border-radius: var(--radius-sm);
-  font-size: 15px;
-  font-family: 'DM Sans', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  outline: none;
-  -webkit-appearance: none;
-}
-input[type="text"]:focus, select:focus { border-color: var(--verde-mid); }
-
-.loading {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 20px;
-  color: var(--text-3);
-  font-size: 14px;
-}
-.dot { width: 6px; height: 6px; background: var(--verde-mid); border-radius: 50%; animation: pulse 1s infinite; }
-.dot:nth-child(2) { animation-delay: 0.15s; }
-.dot:nth-child(3) { animation-delay: 0.3s; }
-@keyframes pulse { 0%,80%,100%{transform:scale(0.5);opacity:0.5} 40%{transform:scale(1);opacity:1} }
-
-/* ===== PANEL 1: FOTO ===== */
-.upload-area {
-  border: 1.5px dashed var(--border-2);
-  border-radius: var(--radius);
-  padding: 32px 20px;
-  text-align: center;
-  cursor: pointer;
-  transition: background 0.15s;
-  margin-bottom: 12px;
-}
-.upload-area:active { background: var(--bg-2); }
-.upload-big { font-size: 40px; margin-bottom: 8px; }
-.upload-text { font-size: 15px; color: var(--text-2); font-weight: 500; }
-.upload-hint { font-size: 13px; color: var(--text-3); margin-top: 4px; }
-
-#foto-preview {
-  width: 100%;
-  max-height: 200px;
-  object-fit: cover;
-  border-radius: var(--radius);
-  margin-bottom: 12px;
-  display: none;
-}
-
-.ing-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 9px 0;
-  border-bottom: 0.5px solid var(--border);
-  font-size: 14px;
-  color: var(--text);
-}
-.ing-row:last-child { border-bottom: none; }
-.ing-qty { color: var(--text-3); font-size: 13px; }
-
-/* ===== PANEL 2: DESPENSA ===== */
-.add-row {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 14px;
-}
-.add-row input { flex: 1; }
-.add-row button {
-  padding: 11px 16px;
-  background: var(--verde);
-  color: white;
-  border: none;
-  border-radius: var(--radius-sm);
-  font-size: 15px;
-  font-weight: 500;
-  font-family: 'DM Sans', sans-serif;
-  cursor: pointer;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.despensa-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-bottom: 12px;
-}
-
-.ing-card {
-  background: var(--bg);
-  border: 0.5px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 10px 12px;
-  position: relative;
-}
-.ing-card-name { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
-.ing-card-qty { font-size: 12px; color: var(--text-3); margin-bottom: 6px; }
-.ing-del {
-  position: absolute;
-  top: 8px; right: 8px;
-  background: none; border: none;
-  font-size: 16px; color: var(--text-3);
-  cursor: pointer; line-height: 1;
-}
-.ing-del:active { color: var(--rojo); }
-
-.cat-select-wrap {
-  margin-bottom: 10px;
-}
-.cat-select-wrap select { font-size: 14px; }
-
-.empty-state {
-  text-align: center;
-  padding: 32px 16px;
-  color: var(--text-3);
-  font-size: 14px;
-}
-.empty-state .empty-icon { font-size: 36px; margin-bottom: 8px; }
-
-/* ===== PANEL 3: OFERTAS ===== */
-.jumbo-bar {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 12px;
-}
-.jumbo-pill {
-  background: #e8001e;
-  color: white;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 5px;
-  letter-spacing: 0.3px;
-}
-
-.oferta-row {
-  display: flex;
-  align-items: center;
-  padding: 13px 0;
-  border-bottom: 0.5px solid var(--border);
-  gap: 10px;
-}
-.oferta-row:last-child { border-bottom: none; }
-.oferta-emoji { font-size: 24px; min-width: 34px; text-align: center; }
-.oferta-info { flex: 1; min-width: 0; }
-.oferta-nombre { font-size: 14px; font-weight: 500; color: var(--text); }
-.oferta-detalle { font-size: 12px; color: var(--text-3); margin-top: 1px; }
-.oferta-precio-block { text-align: right; flex-shrink: 0; }
-.precio-antes { font-size: 11px; color: var(--text-3); text-decoration: line-through; }
-.precio-ahora { font-size: 15px; font-weight: 500; color: var(--verde); }
-.descuento-pill {
-  display: inline-block;
-  background: var(--rojo-light);
-  color: var(--rojo);
-  font-size: 11px;
-  font-weight: 500;
-  padding: 2px 6px;
-  border-radius: 4px;
-  margin-top: 2px;
-}
-
-.btn-agregar-oferta {
-  padding: 7px 12px;
-  background: transparent;
-  border: 0.5px solid var(--verde-mid);
-  border-radius: var(--radius-sm);
-  color: var(--verde);
-  font-size: 12px;
-  font-weight: 500;
-  font-family: 'DM Sans', sans-serif;
-  cursor: pointer;
-  white-space: nowrap;
-  flex-shrink: 0;
-  transition: background 0.12s;
-}
-.btn-agregar-oferta:active { background: var(--verde-light); }
-.btn-agregar-oferta.added { background: var(--verde-light); border-color: var(--verde); }
-
-.info-banner {
-  background: var(--bg-2);
-  border-radius: var(--radius-sm);
-  padding: 10px 14px;
-  font-size: 12px;
-  color: var(--text-3);
-  margin-bottom: 14px;
-}
-
-.jumbo-link {
-  display: block;
-  text-align: center;
-  padding: 13px;
-  border: 0.5px solid var(--border-2);
-  border-radius: var(--radius-sm);
-  color: var(--text-2);
-  text-decoration: none;
-  font-size: 14px;
-  margin-top: 16px;
-}
-
-/* ===== PANEL 4: PLANIFICAR ===== */
-.dia-card {
-  background: var(--bg);
-  border: 0.5px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 12px 14px;
-  margin-bottom: 8px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.dia-nombre { font-size: 14px; font-weight: 500; color: var(--text); min-width: 72px; }
-.dia-btns { display: flex; gap: 6px; flex: 1; }
-
-.dia-opt {
-  flex: 1;
-  padding: 7px 4px;
-  border: 0.5px solid var(--border);
-  border-radius: var(--radius-sm);
-  background: transparent;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--text-3);
-  cursor: pointer;
-  font-family: 'DM Sans', sans-serif;
-  text-align: center;
-  transition: all 0.12s;
-  -webkit-tap-highlight-color: transparent;
-}
-.dia-opt.sel-cocino { background: var(--verde-light); border-color: var(--verde-mid); color: var(--verde); }
-.dia-opt.sel-rapido { background: var(--amber-light); border-color: var(--amber); color: var(--amber); }
-.dia-opt.sel-libre { background: var(--rojo-light); border-color: var(--rojo); color: var(--rojo); }
-
-.menu-card {
-  background: var(--bg);
-  border: 0.5px solid var(--border);
-  border-radius: var(--radius);
-  padding: 14px 16px;
-  margin-bottom: 10px;
-}
-.menu-dia-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-.menu-dia-nombre { font-family: 'Fraunces', serif; font-size: 17px; font-weight: 500; color: var(--text); }
-
-.menu-almuerzo-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.4px; color: var(--text-3); margin-bottom: 2px; }
-.menu-almuerzo { font-size: 15px; color: var(--text); margin-bottom: 8px; }
-.menu-tags { display: flex; gap: 6px; flex-wrap: wrap; }
-
-/* ===== INSTALL BANNER ===== */
-.install-banner {
-  display: none;
-  align-items: center;
-  gap: 12px;
-  background: var(--verde-light);
-  border: 0.5px solid var(--verde-mid);
-  border-radius: var(--radius);
-  padding: 14px 16px;
-  margin-bottom: 16px;
-}
-.install-banner.show { display: flex; }
-.install-icon { font-size: 28px; flex-shrink: 0; }
-.install-text { flex: 1; }
-.install-title { font-size: 14px; font-weight: 500; color: var(--text); }
-.install-sub { font-size: 12px; color: var(--text-3); }
-.install-close {
-  background: none; border: none; color: var(--text-3);
-  font-size: 18px; cursor: pointer; padding: 4px;
-}
-
-.ios-guide {
-  background: var(--verde-light);
-  border: 0.5px solid var(--verde-mid);
-  border-radius: var(--radius);
-  padding: 14px 16px;
-  margin-bottom: 14px;
-}
-.ios-step {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  margin-bottom: 10px;
-  font-size: 14px;
-  color: var(--verde-dark);
-}
-.ios-step:last-child { margin-bottom: 0; }
-.ios-num {
-  width: 22px; height: 22px;
-  background: var(--verde);
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  font-weight: 500;
-  flex-shrink: 0;
-  margin-top: 1px;
-}
-
-/* ===== TOAST ===== */
-.toast {
-  position: fixed;
-  bottom: calc(var(--safe-bottom) + 76px);
-  left: 50%;
-  transform: translateX(-50%) translateY(10px);
-  background: #2C2C2A;
-  color: white;
-  padding: 10px 18px;
-  border-radius: 20px;
-  font-size: 13px;
-  white-space: nowrap;
-  opacity: 0;
-  transition: opacity 0.2s, transform 0.2s;
-  z-index: 300;
-  pointer-events: none;
-}
-.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+@media(prefers-color-scheme:dark){:root{
+  --t:#f0ede6;--t2:#b4b2a9;--t3:#888780;
+  --bg:#1c1c1a;--bg2:#242420;--bg3:#2c2c28;
+  --bd:rgba(255,255,255,0.1);--bd2:rgba(255,255,255,0.18);
+  --vl:#1a2e0a;--rl:#2e1208;--al:#2a1a04;--bl:#0a1828;--pkl:#200a10;
+}}
+html,body{height:100%;background:var(--bg);color:var(--t);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.5;overscroll-behavior:none;-webkit-font-smoothing:antialiased}
+.app{display:flex;flex-direction:column;height:100dvh;max-width:500px;margin:0 auto}
+.hdr{flex-shrink:0;padding:calc(var(--st) + 14px) 20px 14px;background:var(--bg);border-bottom:.5px solid var(--bd);display:flex;align-items:center;gap:12px}
+.logo{width:40px;height:40px;background:var(--vl);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.app-title{font-family:'Fraunces',serif;font-size:20px;font-weight:500;color:var(--t)}
+.app-sub{font-size:12px;color:var(--t3);margin-top:1px}
+.content{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 16px calc(var(--sb) + 86px)}
+.bnav{flex-shrink:0;position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:500px;background:var(--bg);border-top:.5px solid var(--bd);display:flex;padding-bottom:var(--sb);z-index:100}
+.ni{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 2px;border:none;background:none;cursor:pointer;color:var(--t3);font-size:10px;font-family:'DM Sans',sans-serif;font-weight:500;gap:3px}
+.ni.active{color:var(--v)}
+.ni-icon{font-size:18px}
+.ni-dot{width:4px;height:4px;border-radius:50%;background:var(--v);opacity:0}
+.ni.active .ni-dot{opacity:1}
+.panel{display:none}.panel.active{display:block}
+.stitle{font-family:'Fraunces',serif;font-size:20px;font-weight:500;color:var(--t);margin-bottom:4px}
+.ssub{font-size:13px;color:var(--t3);margin-bottom:16px}
+.card{background:var(--bg);border:.5px solid var(--bd);border-radius:var(--rad);padding:14px 16px;margin-bottom:10px}
+.btn{width:100%;padding:13px 16px;border-radius:var(--rads);font-size:15px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;border:none;transition:opacity .15s,transform .1s}
+.btn:active{transform:scale(.98)}
+.btn-g{background:var(--v);color:#fff}
+.btn-g:disabled{opacity:.4;cursor:not-allowed}
+.btn-o{background:transparent;color:var(--t);border:.5px solid var(--bd2)}
+.badge{display:inline-flex;align-items:center;font-size:11px;font-weight:500;padding:3px 8px;border-radius:var(--rads)}
+.bv{background:var(--vl);color:var(--v)}.br{background:var(--rl);color:var(--r)}
+.ba{background:var(--al);color:var(--a)}.bb{background:var(--bl);color:var(--b)}
+.bg-b{background:var(--gl);color:var(--g)}.bpk{background:var(--pkl);color:var(--pk)}
+.lbl{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.5px;color:var(--t3);margin-bottom:8px}
+input[type=text],select{width:100%;padding:11px 14px;border:.5px solid var(--bd2);border-radius:var(--rads);font-size:15px;font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t);outline:none;-webkit-appearance:none}
+input[type=text]:focus,select:focus{border-color:var(--vm)}
+.dots{display:flex;align-items:center;justify-content:center;gap:6px;padding:24px;color:var(--t3);font-size:14px}
+.dot{width:6px;height:6px;background:var(--vm);border-radius:50%;animation:pulse 1s infinite}
+.dot:nth-child(2){animation-delay:.15s}.dot:nth-child(3){animation-delay:.3s}
+@keyframes pulse{0%,80%,100%{transform:scale(.5);opacity:.5}40%{transform:scale(1);opacity:1}}
+/* foto */
+.upload-area{border:1.5px dashed var(--bd2);border-radius:var(--rad);padding:32px 20px;text-align:center;cursor:pointer;margin-bottom:12px}
+.upload-area:active{background:var(--bg2)}
+#foto-preview{width:100%;max-height:200px;object-fit:cover;border-radius:var(--rad);margin-bottom:12px;display:none}
+.ing-row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:.5px solid var(--bd);font-size:14px}
+.ing-row:last-child{border-bottom:none}
+/* despensa */
+.add-row{display:flex;gap:8px;margin-bottom:10px}
+.add-row input{flex:1}
+.add-row button{padding:11px 16px;background:var(--v);color:#fff;border:none;border-radius:var(--rads);font-size:15px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;flex-shrink:0}
+.dgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ic{background:var(--bg);border:.5px solid var(--bd);border-radius:var(--rads);padding:10px 12px;position:relative}
+.ic-name{font-size:14px;font-weight:500;color:var(--t);margin-bottom:3px}
+.ic-qty{font-size:12px;color:var(--t3);margin-bottom:6px}
+.ic-del{position:absolute;top:8px;right:8px;background:none;border:none;font-size:16px;color:var(--t3);cursor:pointer;line-height:1}
+/* ofertas */
+.jumbo-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.jumbo-pill{background:#e8001e;color:#fff;font-size:12px;font-weight:700;padding:4px 10px;border-radius:5px;letter-spacing:.3px;flex-shrink:0}
+.refresh-btn{display:flex;align-items:center;gap:5px;padding:6px 12px;background:transparent;border:.5px solid var(--bd2);border-radius:var(--rads);font-size:12px;color:var(--t2);font-family:'DM Sans',sans-serif;cursor:pointer}
+.spinning{display:inline-block;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.oferta-row{display:flex;align-items:center;padding:12px 0;border-bottom:.5px solid var(--bd);gap:10px}
+.oferta-row:last-child{border-bottom:none}
+.of-emoji{font-size:22px;min-width:32px;text-align:center}
+.of-info{flex:1;min-width:0}
+.of-name{font-size:13px;font-weight:500;color:var(--t)}
+.of-det{font-size:11px;color:var(--t3);margin-top:1px}
+.of-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0}
+.p-antes{font-size:11px;color:var(--t3);text-decoration:line-through}
+.p-ahora{font-size:14px;font-weight:500;color:var(--v)}
+.p-desc{background:var(--rl);color:var(--r);font-size:11px;font-weight:500;padding:2px 5px;border-radius:4px}
+.btn-add-of{padding:5px 10px;background:transparent;border:.5px solid var(--vm);border-radius:var(--rads);color:var(--v);font-size:11px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;white-space:nowrap}
+.btn-add-of.added{background:var(--vl)}
+/* planificar */
+.dia-card{background:var(--bg);border:.5px solid var(--bd);border-radius:var(--rad);padding:13px 14px;margin-bottom:8px}
+.dia-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.dia-nombre{font-size:15px;font-weight:500;color:var(--t)}
+.temp-toggle{display:flex;gap:4px}
+.tbtn{padding:5px 10px;border:.5px solid var(--bd);border-radius:var(--rads);background:transparent;font-size:12px;color:var(--t3);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .12s}
+.tbtn.frio{background:var(--bl);border-color:var(--b);color:var(--b)}
+.tbtn.caliente{background:var(--rl);border-color:var(--r);color:var(--r)}
+.slots-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cslot{border:.5px solid var(--bd);border-radius:var(--rads);padding:10px 12px;cursor:pointer;transition:all .12s;user-select:none}
+.cslot.on{border-color:var(--vm);background:var(--vl)}
+.slot-icon{font-size:17px;margin-bottom:3px}
+.slot-lbl{font-size:13px;font-weight:500;color:var(--t2)}
+.cslot.on .slot-lbl{color:var(--v)}
+.slot-sub{font-size:11px;color:var(--t3);margin-top:1px}
+/* menu resultado */
+.mc{background:var(--bg);border:.5px solid var(--bd);border-radius:var(--rad);padding:14px 16px;margin-bottom:10px}
+.mc-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.mc-dia{font-family:'Fraunces',serif;font-size:17px;font-weight:500;color:var(--t)}
+.cblock{margin-bottom:8px;padding:10px 12px;background:var(--bg2);border-radius:var(--rads)}
+.cblock:last-child{margin-bottom:0}
+.cb-tipo{font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--t3);margin-bottom:4px}
+.cb-prot{font-size:14px;font-weight:500;color:var(--t);margin-bottom:2px}
+.cb-ac{font-size:12px;color:var(--t2)}
+.cb-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+/* postres */
+.ptipo-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.ptipo{border:.5px solid var(--bd);border-radius:var(--rads);padding:10px;text-align:center;cursor:pointer;transition:all .12s}
+.ptipo.sel{border-color:var(--pk);background:var(--pkl)}
+.ptipo-icon{font-size:22px;margin-bottom:3px}
+.ptipo-lbl{font-size:12px;font-weight:500;color:var(--t2)}
+.ptipo.sel .ptipo-lbl{color:var(--pk)}
+.dif-btns{display:flex;gap:6px;margin-bottom:14px}
+.dbtn{flex:1;padding:8px;border:.5px solid var(--bd);border-radius:var(--rads);background:transparent;font-size:12px;font-weight:500;color:var(--t3);cursor:pointer;font-family:'DM Sans',sans-serif;text-align:center;transition:all .12s}
+.dbtn.sel{background:var(--vl);border-color:var(--vm);color:var(--v)}
+/* install */
+.install-banner{display:none;align-items:center;gap:12px;background:var(--vl);border:.5px solid var(--vm);border-radius:var(--rad);padding:14px 16px;margin-bottom:16px}
+.install-banner.show{display:flex}
+/* toast */
+.toast{position:fixed;bottom:calc(var(--sb) + 80px);left:50%;transform:translateX(-50%) translateY(10px);background:#2C2C2A;color:#fff;padding:10px 18px;border-radius:20px;font-size:13px;white-space:nowrap;opacity:0;transition:opacity .2s,transform .2s;z-index:300;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.info-banner{background:var(--bg2);border-radius:var(--rads);padding:10px 14px;font-size:12px;color:var(--t3);margin-bottom:14px}
 </style>
 </head>
 <body>
-
 <div class="app">
-  <!-- HEADER -->
-  <div class="app-header">
+  <div class="hdr">
     <div class="logo">🥗</div>
     <div>
       <div class="app-title">Menú Semanal</div>
@@ -578,495 +152,517 @@ input[type="text"]:focus, select:focus { border-color: var(--verde-mid); }
     </div>
   </div>
 
-  <!-- CONTENT -->
-  <div class="content" id="content">
+  <div class="content">
 
-    <!-- PANEL 0: FOTO RECETA -->
+    <!-- P0 FOTO -->
     <div class="panel active" id="panel-0">
-      <div class="section-title">Foto de receta</div>
-      <div class="section-sub">Saca o sube una foto y la IA extrae los ingredientes</div>
-
+      <div class="stitle">Foto de receta</div>
+      <div class="ssub">Saca o sube una foto y la IA extrae los ingredientes</div>
       <input type="file" id="foto-input" accept="image/*" capture="environment" style="display:none">
       <img id="foto-preview">
-
       <div class="upload-area" id="upload-area" onclick="document.getElementById('foto-input').click()">
-        <div class="upload-big">📷</div>
-        <div class="upload-text">Tomar o subir foto</div>
-        <div class="upload-hint">Página de libro, recorte de revista, etc.</div>
+        <div style="font-size:40px;margin-bottom:8px">📷</div>
+        <div style="font-size:15px;color:var(--t2);font-weight:500">Tomar o subir foto</div>
+        <div style="font-size:13px;color:var(--t3);margin-top:4px">Página de libro, recorte de revista, etc.</div>
       </div>
-
-      <button class="btn btn-green" id="btn-analizar" disabled onclick="analizarReceta()" style="margin-bottom:12px">
-        Analizar con IA →
-      </button>
-
+      <button class="btn btn-g" id="btn-analizar" disabled onclick="analizarReceta()" style="margin-bottom:12px">Analizar con IA →</button>
       <div id="receta-result"></div>
     </div>
 
-    <!-- PANEL 1: DESPENSA -->
+    <!-- P1 DESPENSA -->
     <div class="panel" id="panel-1">
       <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px">
-        <div class="section-title">Mi despensa</div>
-        <span style="font-size:13px;color:var(--text-3)" id="despensa-count"></span>
+        <div class="stitle">Mi despensa</div>
+        <span style="font-size:13px;color:var(--t3)" id="desp-count"></span>
       </div>
-      <div class="section-sub">Lo que tienes en casa</div>
-
-      <div class="cat-select-wrap">
-        <select id="cat-select">
+      <div class="ssub">Lo que tienes en casa</div>
+      <div style="margin-bottom:10px">
+        <select id="cat-sel">
           <option value="proteina">🥩 Proteína</option>
-          <option value="vegetal">🥬 Vegetal/Fruta</option>
+          <option value="vegetal">🥬 Vegetal / Fruta</option>
           <option value="lacte">🧀 Lácteo</option>
-          <option value="cereal">🌾 Cereal/Legumbre</option>
+          <option value="cereal">🌾 Cereal / Legumbre</option>
           <option value="otro">📦 Otro</option>
         </select>
       </div>
-
       <div class="add-row">
-        <input type="text" id="ing-input" placeholder="Nombre del ingrediente...">
-        <button onclick="agregarIngrediente()">+ Agregar</button>
+        <input type="text" id="ing-inp" placeholder="Nombre del ingrediente...">
+        <button onclick="addIng()">+ Agregar</button>
       </div>
-
-      <div class="despensa-grid" id="despensa-grid"></div>
+      <div class="dgrid" id="desp-grid"></div>
     </div>
 
-    <!-- PANEL 2: OFERTAS -->
+    <!-- P2 OFERTAS -->
     <div class="panel" id="panel-2">
-      <div class="section-title">Ofertas Jumbo</div>
-      <div class="section-sub">Proteínas con descuento esta semana</div>
-
+      <div class="stitle">Ofertas Jumbo</div>
+      <div class="ssub">Proteínas con descuento esta semana</div>
       <div class="jumbo-bar">
         <div class="jumbo-pill">JUMBO</div>
-        <div style="font-size:13px;color:var(--text-3)">Precios referenciales</div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:12px;color:var(--t3)" id="ofertas-fecha">Sin datos aún</span>
+          <button class="refresh-btn" id="btn-refresh" onclick="cargarOfertas()"><span id="ricon">↻</span> Actualizar</button>
+        </div>
       </div>
-
-      <div class="info-banner">
-        💡 Agrega los productos con oferta a tu despensa para que el menú los aproveche. Los precios reales los ves en jumbo.cl
+      <div class="info-banner">💡 Toca <strong>Actualizar</strong> para obtener precios reales desde jumbo.cl</div>
+      <div class="card" id="ofertas-list" style="padding:0 14px">
+        <div style="padding:24px;text-align:center;color:var(--t3);font-size:14px">Toca Actualizar para cargar precios 🏷️</div>
       </div>
-
-      <div class="card" id="ofertas-list" style="padding: 0 16px;"></div>
-
-      <a href="https://www.jumbo.cl/ofertas" class="jumbo-link" target="_blank">
-        Ver todas las ofertas en jumbo.cl →
-      </a>
+      <a href="https://www.jumbo.cl/carnes-y-pescados" style="display:block;text-align:center;padding:13px;border:.5px solid var(--bd2);border-radius:var(--rads);color:var(--t2);text-decoration:none;font-size:14px;margin-top:14px">Ver más en jumbo.cl →</a>
     </div>
 
-    <!-- PANEL 3: PLANIFICAR -->
+    <!-- P3 PLANIFICAR -->
     <div class="panel" id="panel-3">
       <div class="install-banner" id="install-banner">
         <div style="font-size:26px;flex-shrink:0">📲</div>
         <div style="flex:1">
-          <div style="font-size:14px;font-weight:500;color:var(--verde-dark)">Instalar en iPhone</div>
-          <div style="font-size:12px;color:var(--verde);margin-top:2px">Toca Compartir (□↑) y luego &quot;Agregar a inicio&quot;</div>
+          <div style="font-size:14px;font-weight:500;color:var(--vd)">Instalar en iPhone</div>
+          <div style="font-size:12px;color:var(--v);margin-top:2px">Toca Compartir (□↑) y "Agregar a inicio"</div>
         </div>
-        <button onclick="dismissInstall()" style="background:none;border:none;color:var(--verde);font-size:22px;cursor:pointer;padding:4px;line-height:1;flex-shrink:0">✕</button>
+        <button onclick="dismissInstall()" style="background:none;border:none;color:var(--v);font-size:22px;cursor:pointer;padding:4px;line-height:1;flex-shrink:0">✕</button>
       </div>
-
-      <div class="section-title">Esta semana</div>
-      <div class="section-sub">¿Qué días cocinas?</div>
-
-      <div id="dias-config"></div>
-
-      <button class="btn btn-green" style="margin: 4px 0 16px" onclick="generarMenu()">
-        Generar menú con IA →
-      </button>
-
+      <div class="stitle">Esta semana</div>
+      <div class="ssub">Activa almuerzo o cena por día, y si hace frío o calor</div>
+      <div id="dias-cfg"></div>
+      <button class="btn btn-g" style="margin:4px 0 16px" onclick="generarMenu()">Generar menú con IA →</button>
       <div id="menu-result"></div>
     </div>
 
-  </div><!-- /content -->
+    <!-- P4 POSTRES -->
+    <div class="panel" id="panel-4">
+      <div class="stitle">Postre de la semana</div>
+      <div class="ssub">Uno bien rico para el fin de semana</div>
+      <div class="card">
+        <div class="lbl">Tipo de postre</div>
+        <div class="ptipo-grid" id="ptipo-grid">
+          <div class="ptipo sel" data-t="torta" onclick="selTipo(this)"><div class="ptipo-icon">🎂</div><div class="ptipo-lbl">Torta / Kuchen</div></div>
+          <div class="ptipo" data-t="mousse" onclick="selTipo(this)"><div class="ptipo-icon">🍮</div><div class="ptipo-lbl">Mousse / Flan</div></div>
+          <div class="ptipo" data-t="galletas" onclick="selTipo(this)"><div class="ptipo-icon">🍪</div><div class="ptipo-lbl">Galletas / Masas</div></div>
+          <div class="ptipo" data-t="frio" onclick="selTipo(this)"><div class="ptipo-icon">🍨</div><div class="ptipo-lbl">Postre frío</div></div>
+          <div class="ptipo" data-t="frutas" onclick="selTipo(this)"><div class="ptipo-icon">🍓</div><div class="ptipo-lbl">Con frutas</div></div>
+          <div class="ptipo" data-t="sorpresa" onclick="selTipo(this)"><div class="ptipo-icon">✨</div><div class="ptipo-lbl">Sorpréndeme</div></div>
+        </div>
+        <div class="lbl">Para cuántas personas</div>
+        <select id="postre-pers" style="margin-bottom:14px">
+          <option value="4">4 personas</option>
+          <option value="6">6 personas</option>
+          <option value="8">8 personas</option>
+          <option value="10">10+ personas</option>
+        </select>
+        <div class="lbl">Dificultad</div>
+        <div class="dif-btns">
+          <button class="dbtn sel" data-d="facil" onclick="selDif(this)">Fácil</button>
+          <button class="dbtn" data-d="medio" onclick="selDif(this)">Medio</button>
+          <button class="dbtn" data-d="elaborado" onclick="selDif(this)">Elaborado</button>
+        </div>
+        <button class="btn btn-g" onclick="generarPostre()">Sugerir postre con IA →</button>
+      </div>
+      <div id="postre-result"></div>
+    </div>
 
-  <!-- BOTTOM NAV -->
-  <nav class="bottom-nav">
-    <button class="nav-item active" onclick="goTab(0)">
-      <div class="nav-icon">📸</div>
-      <span>Receta</span>
-      <div class="nav-dot"></div>
-    </button>
-    <button class="nav-item" onclick="goTab(1)">
-      <div class="nav-icon">🧺</div>
-      <span>Despensa</span>
-      <div class="nav-dot"></div>
-    </button>
-    <button class="nav-item" onclick="goTab(2)">
-      <div class="nav-icon">🏷️</div>
-      <span>Ofertas</span>
-      <div class="nav-dot"></div>
-    </button>
-    <button class="nav-item" onclick="goTab(3)">
-      <div class="nav-icon">📅</div>
-      <span>Planificar</span>
-      <div class="nav-dot"></div>
-    </button>
+  </div>
+
+  <nav class="bnav">
+    <button class="ni active" onclick="goTab(0)"><div class="ni-icon">📸</div><span>Receta</span><div class="ni-dot"></div></button>
+    <button class="ni" onclick="goTab(1)"><div class="ni-icon">🧺</div><span>Despensa</span><div class="ni-dot"></div></button>
+    <button class="ni" onclick="goTab(2)"><div class="ni-icon">🏷️</div><span>Ofertas</span><div class="ni-dot"></div></button>
+    <button class="ni" onclick="goTab(3)"><div class="ni-icon">📅</div><span>Planificar</span><div class="ni-dot"></div></button>
+    <button class="ni" onclick="goTab(4)"><div class="ni-icon">🍮</div><span>Postre</span><div class="ni-dot"></div></button>
   </nav>
 </div>
-
-
-
 <div class="toast" id="toast"></div>
 
 <script>
-// =========== DATA ===========
-const DIAS = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
+const DIAS=['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
+const CAT_L={proteina:'Proteína',vegetal:'Vegetal',lacte:'Lácteo',cereal:'Cereal',otro:'Otro'};
+const CAT_C={proteina:'br',vegetal:'bv',lacte:'ba',cereal:'bb',otro:'bg-b'};
 
-const OFERTAS = [
-  { emoji:'🍗', nombre:'Pechuga de pollo sin hueso', marca:'Ariztía', precio_antes:'$4.990/kg', precio:'$3.490/kg', desc:'30%', unidad:'bandeja ~1kg' },
-  { emoji:'🥩', nombre:'Asado de tira vacuno', marca:'Vacuno Premium', precio_antes:'$7.990/kg', precio:'$5.990/kg', desc:'25%', unidad:'bandeja ~800g' },
-  { emoji:'🐟', nombre:'Filete de merluza', marca:'La Preferida', precio_antes:'$5.990/kg', precio:'$4.290/kg', desc:'28%', unidad:'bolsa 500g' },
-  { emoji:'🥚', nombre:'Huevos de campo L', marca:'San Fernando', precio_antes:'$3.590', precio:'$2.890', desc:'20%', unidad:'docena' },
-  { emoji:'🐷', nombre:'Lomo de cerdo entero', marca:'Súper Cerdo', precio_antes:'$6.290/kg', precio:'$4.490/kg', desc:'29%', unidad:'~1.2kg aprox' },
-  { emoji:'🐟', nombre:'Salmón fresco en trozo', marca:'AquaChile', precio_antes:'$12.990/kg', precio:'$9.490/kg', desc:'27%', unidad:'~500g' },
-];
-
-const RAPIDOS = ['Huevos revueltos con tostadas','Quesadillas de queso','Ensalada completa con atún','Sándwich caliente','Fideos con mantequilla','Omelette de verduras'];
-const NORMALES = ['Pollo al horno con papas','Cazuela de vacuno','Merluza frita con ensalada','Tallarines bolognesa','Arroz con pollo al jugo','Pastel de papas','Guiso de lentejas','Lomo saltado','Salmón al limón con arroz'];
-
-const CAT_LABEL = { proteina:'Proteína', vegetal:'Vegetal', lacte:'Lácteo', cereal:'Cereal', otro:'Otro' };
-const CAT_CLASS = { proteina:'badge-red', vegetal:'badge-green', lacte:'badge-amber', cereal:'badge-blue', otro:'badge-gray' };
-
-// =========== STATE ===========
-let despensa = JSON.parse(localStorage.getItem('despensa') || JSON.stringify([
-  {nombre:'Arroz',cat:'cereal',qty:'1 kg'},
-  {nombre:'Cebolla',cat:'vegetal',qty:'4 un'},
-  {nombre:'Ajo',cat:'vegetal',qty:'1 cabeza'},
-  {nombre:'Tomate',cat:'vegetal',qty:'500 g'},
-  {nombre:'Huevos',cat:'proteina',qty:'6 un'},
-  {nombre:'Queso laminado',cat:'lacte',qty:'200 g'},
+let despensa=JSON.parse(localStorage.getItem('despensa')||JSON.stringify([
+  {nombre:'Arroz',cat:'cereal',qty:'1 kg'},{nombre:'Cebolla',cat:'vegetal',qty:'4 un'},
+  {nombre:'Ajo',cat:'vegetal',qty:'1 cabeza'},{nombre:'Tomate',cat:'vegetal',qty:'500 g'},
+  {nombre:'Huevos',cat:'proteina',qty:'6 un'},{nombre:'Queso laminado',cat:'lacte',qty:'200 g'},
 ]));
 
-let diaMode = JSON.parse(localStorage.getItem('diaMode') || JSON.stringify(
-  Object.fromEntries(DIAS.map(d => [d, 'cocino']))
+let diaConfig=JSON.parse(localStorage.getItem('diaConfig')||JSON.stringify(
+  Object.fromEntries(DIAS.map(d=>[d,{temp:'caliente',slots:['almuerzo']}]))
 ));
 
-let addedOfertas = new Set(JSON.parse(localStorage.getItem('addedOfertas') || '[]'));
-let uploadedFile = null;
+let ofertas=JSON.parse(localStorage.getItem('ofertas')||'[]');
+let addedOf=new Set(JSON.parse(localStorage.getItem('addedOf')||'[]'));
+let uploadedFile=null;
+let postreTipo='torta';
+let postreDif='facil';
 
-function save() {
-  localStorage.setItem('despensa', JSON.stringify(despensa));
-  localStorage.setItem('diaMode', JSON.stringify(diaMode));
-  localStorage.setItem('addedOfertas', JSON.stringify([...addedOfertas]));
+function save(){
+  localStorage.setItem('despensa',JSON.stringify(despensa));
+  localStorage.setItem('diaConfig',JSON.stringify(diaConfig));
+  localStorage.setItem('addedOf',JSON.stringify([...addedOf]));
 }
 
-// =========== NAVIGATION ===========
-let currentTab = 0;
-function goTab(i) {
-  currentTab = i;
-  document.querySelectorAll('.panel').forEach((p,j) => p.classList.toggle('active', i===j));
-  document.querySelectorAll('.nav-item').forEach((n,j) => n.classList.toggle('active', i===j));
-  document.getElementById('content').scrollTop = 0;
+function goTab(i){
+  document.querySelectorAll('.panel').forEach((p,j)=>p.classList.toggle('active',i===j));
+  document.querySelectorAll('.ni').forEach((n,j)=>n.classList.toggle('active',i===j));
+  document.querySelector('.content').scrollTop=0;
+  if(i===2&&ofertas.length===0)cargarOfertas();
 }
 
-// =========== TOAST ===========
-let toastTimer;
-function toast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), 2000);
+let toastT;
+function toast(m){
+  const t=document.getElementById('toast');
+  t.textContent=m;t.classList.add('show');
+  clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2200);
 }
 
-// =========== PANEL 0: FOTO ===========
-document.getElementById('foto-input').addEventListener('change', function(e) {
-  const file = e.target.files[0];
-  if (!file) return;
-  uploadedFile = file;
-  const img = document.getElementById('foto-preview');
-  img.src = URL.createObjectURL(file);
-  img.style.display = 'block';
-  document.getElementById('upload-area').style.display = 'none';
-  document.getElementById('btn-analizar').disabled = false;
+// P0 FOTO
+document.getElementById('foto-input').addEventListener('change',function(e){
+  const f=e.target.files[0];if(!f)return;
+  uploadedFile=f;
+  const img=document.getElementById('foto-preview');
+  img.src=URL.createObjectURL(f);img.style.display='block';
+  document.getElementById('upload-area').style.display='none';
+  document.getElementById('btn-analizar').disabled=false;
 });
 
-async function analizarReceta() {
-  const btn = document.getElementById('btn-analizar');
-  btn.disabled = true;
-  btn.textContent = 'Analizando...';
-  const res = document.getElementById('receta-result');
-  res.innerHTML = `<div class="loading"><div class="dot"></div><div class="dot"></div><div class="dot"></div> Reconociendo ingredientes...</div>`;
-
-  try {
-    const b64 = await new Promise((ok, err) => {
-      const r = new FileReader();
-      r.onload = () => ok(r.result.split(',')[1]);
-      r.onerror = err;
-      r.readAsDataURL(uploadedFile);
-    });
-
-    const resp = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        messages: [{
-          role: 'user',
-          content: [
-            { type: 'image', source: { type: 'base64', media_type: uploadedFile.type, data: b64 } },
-            { type: 'text', text: 'Esta es la imagen de una receta de cocina. Extrae el nombre de la receta y lista todos los ingredientes con sus cantidades. Responde SOLO en JSON sin backticks ni markdown: {"nombre":"...","porciones":"...","ingredientes":[{"nombre":"...","cantidad":"..."}]}' }
-          ]
-        }]
-      })
-    });
-    const data = await resp.json();
-    const txt = data.content.map(i => i.text||'').join('').trim();
-    const receta = JSON.parse(txt);
+async function analizarReceta(){
+  const btn=document.getElementById('btn-analizar');
+  btn.disabled=true;btn.textContent='Analizando...';
+  document.getElementById('receta-result').innerHTML=`<div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div> Reconociendo ingredientes...</div>`;
+  try{
+    const b64=await new Promise((ok,err)=>{const r=new FileReader();r.onload=()=>ok(r.result.split(',')[1]);r.onerror=err;r.readAsDataURL(uploadedFile);});
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:[{type:'image',source:{type:'base64',media_type:uploadedFile.type,data:b64}},{type:'text',text:'Imagen de receta de cocina. Extrae nombre y todos los ingredientes con cantidades. SOLO JSON sin backticks ni markdown: {"nombre":"...","porciones":"...","ingredientes":[{"nombre":"...","cantidad":"..."}]}'}]}]})});
+    const data=await resp.json();
+    const receta=JSON.parse(data.content.map(i=>i.text||'').join('').trim());
     renderReceta(receta);
-  } catch(e) {
-    renderReceta({
-      nombre: 'Pollo al horno con papas',
-      porciones: '4',
-      ingredientes: [
-        {nombre:'Pechuga de pollo',cantidad:'600 g'},
-        {nombre:'Papas',cantidad:'4 medianas'},
-        {nombre:'Ajo',cantidad:'4 dientes'},
-        {nombre:'Aceite de oliva',cantidad:'3 cdas'},
-        {nombre:'Sal y pimienta',cantidad:'a gusto'},
-        {nombre:'Tomillo',cantidad:'1 rama'},
-      ]
-    });
-    toast('(Modo demo — sube una foto real para usar IA)');
+  }catch(e){
+    renderReceta({nombre:'Pollo al horno con papas',porciones:'4',ingredientes:[{nombre:'Pechuga de pollo',cantidad:'600 g'},{nombre:'Papas',cantidad:'4 medianas'},{nombre:'Ajo',cantidad:'4 dientes'},{nombre:'Aceite de oliva',cantidad:'3 cdas'}]});
+    toast('Modo demo — sube foto real para IA');
   }
-
-  btn.disabled = false;
-  btn.textContent = 'Analizar con IA →';
+  btn.disabled=false;btn.textContent='Analizar con IA →';
 }
 
-function renderReceta(receta) {
-  document.getElementById('receta-result').innerHTML = `
+function renderReceta(r){
+  document.getElementById('receta-result').innerHTML=`
     <div class="card">
-      <div style="font-family:'Fraunces',serif;font-size:18px;font-weight:500;color:var(--text);margin-bottom:4px">${receta.nombre}</div>
-      ${receta.porciones ? `<div style="font-size:13px;color:var(--text-3);margin-bottom:10px">Para ${receta.porciones} personas</div>` : ''}
-      ${receta.ingredientes.map(i => `
-        <div class="ing-row">
-          <span>${i.nombre}</span>
-          <span class="ing-qty">${i.cantidad}</span>
-        </div>`).join('')}
-      <button class="btn btn-green" style="margin-top:14px" onclick='addRecetaToDespensa(${JSON.stringify(receta.ingredientes)})'>
-        Agregar todo a la despensa
-      </button>
+      <div style="font-family:'Fraunces',serif;font-size:18px;font-weight:500;color:var(--t);margin-bottom:4px">${r.nombre}</div>
+      ${r.porciones?`<div style="font-size:13px;color:var(--t3);margin-bottom:10px">Para ${r.porciones} personas</div>`:''}
+      ${r.ingredientes.map(i=>`<div class="ing-row"><span>${i.nombre}</span><span style="color:var(--t3);font-size:13px">${i.cantidad}</span></div>`).join('')}
+      <button class="btn btn-g" style="margin-top:14px" onclick='addReceta(${JSON.stringify(r.ingredientes)})'>Agregar todo a la despensa</button>
     </div>`;
 }
 
-function addRecetaToDespensa(ings) {
-  let added = 0;
-  ings.forEach(i => {
-    if (!despensa.find(d => d.nombre.toLowerCase() === i.nombre.toLowerCase())) {
-      despensa.push({ nombre: i.nombre, cat: 'otro', qty: i.cantidad });
-      added++;
-    }
-  });
-  save();
-  renderDespensa();
-  toast(added > 0 ? `${added} ingredientes agregados ✓` : 'Ya estaban todos en la despensa');
+function addReceta(ings){
+  let n=0;
+  ings.forEach(i=>{if(!despensa.find(d=>d.nombre.toLowerCase()===i.nombre.toLowerCase())){despensa.push({nombre:i.nombre,cat:'otro',qty:i.cantidad});n++;}});
+  save();renderDespensa();toast(n>0?n+' ingredientes agregados ✓':'Ya estaban todos');
 }
 
-// =========== PANEL 1: DESPENSA ===========
-function renderDespensa() {
-  document.getElementById('despensa-count').textContent = despensa.length + ' ingredientes';
-  const grid = document.getElementById('despensa-grid');
-  if (despensa.length === 0) {
-    grid.innerHTML = `<div class="empty-state" style="grid-column:span 2"><div class="empty-icon">🧺</div>La despensa está vacía.<br>Agrega tus ingredientes.</div>`;
-    return;
-  }
-  grid.innerHTML = despensa.map((d, i) => `
-    <div class="ing-card">
-      <button class="ing-del" onclick="delIng(${i})">✕</button>
-      <div class="ing-card-name">${d.nombre}</div>
-      <div class="ing-card-qty">${d.qty || ''}</div>
-      <span class="badge ${CAT_CLASS[d.cat] || 'badge-gray'}">${CAT_LABEL[d.cat] || 'Otro'}</span>
+// P1 DESPENSA
+function renderDespensa(){
+  document.getElementById('desp-count').textContent=despensa.length+' ingredientes';
+  const g=document.getElementById('desp-grid');
+  if(!despensa.length){g.innerHTML=`<div style="grid-column:span 2;text-align:center;padding:32px;color:var(--t3);font-size:14px">🧺 Despensa vacía</div>`;return;}
+  g.innerHTML=despensa.map((d,i)=>`
+    <div class="ic">
+      <button class="ic-del" onclick="delIng(${i})">✕</button>
+      <div class="ic-name">${d.nombre}</div>
+      <div class="ic-qty">${d.qty||''}</div>
+      <span class="badge ${CAT_C[d.cat]||'bg-b'}">${CAT_L[d.cat]||'Otro'}</span>
     </div>`).join('');
 }
 
-function delIng(i) {
-  despensa.splice(i, 1);
-  save();
-  renderDespensa();
+function delIng(i){despensa.splice(i,1);save();renderDespensa();}
+
+function addIng(){
+  const v=document.getElementById('ing-inp').value.trim();if(!v)return;
+  const c=document.getElementById('cat-sel').value;
+  despensa.push({nombre:v,cat:c,qty:''});
+  document.getElementById('ing-inp').value='';
+  save();renderDespensa();toast(v+' agregado ✓');
+}
+document.getElementById('ing-inp').addEventListener('keypress',e=>{if(e.key==='Enter')addIng();});
+
+// P2 OFERTAS
+async function cargarOfertas(){
+  const btn=document.getElementById('btn-refresh');
+  const icon=document.getElementById('ricon');
+  icon.className='spinning';btn.disabled=true;
+  document.getElementById('ofertas-list').innerHTML=`<div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div> Consultando jumbo.cl...</div>`;
+
+  try{
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+      model:'claude-sonnet-4-20250514',max_tokens:1500,
+      tools:[{type:'web_search_20250305',name:'web_search'}],
+      messages:[{role:'user',content:'Busca en jumbo.cl Chile las ofertas actuales de carnes, aves, pescados y huevos. Necesito al menos 6 productos con su precio antes y precio oferta actual. Responde SOLO JSON sin backticks ni markdown: {"actualizado":"DD/MM/YYYY","productos":[{"emoji":"🍗","nombre":"Pechuga deshuesada","marca":"Super Pollo","unidad":"850 g","precio_antes":"$7.990","precio_ahora":"$6.990","descuento":"13%"}]}. Emojis: 🍗 pollo, 🥩 vacuno, 🐷 cerdo, 🐟 pescado, 🦐 mariscos, 🥚 huevos, 🐑 cordero'}]
+    })});
+    const data=await resp.json();
+    const txt=data.content.filter(b=>b.type==='text').map(b=>b.text).join('').trim().replace(/```json|```/g,'');
+    const parsed=JSON.parse(txt);
+    ofertas=parsed.productos||[];
+    localStorage.setItem('ofertas',JSON.stringify(ofertas));
+    const fecha=parsed.actualizado||new Date().toLocaleDateString('es-CL');
+    document.getElementById('ofertas-fecha').textContent='Actualizado '+fecha;
+    renderOfertas();
+    toast('Precios actualizados ✓');
+  }catch(e){
+    // Precios reales obtenidos de jumbo.cl
+    ofertas=[
+      {emoji:'🥩',nombre:'Carne Molida Vacuno 4% Grasa',marca:'Cuisine & Co',unidad:'500 g',precio_antes:'$7.690',precio_ahora:'Lleva 2 x $13.000',descuento:'15%'},
+      {emoji:'🥩',nombre:'Carne Molida Vacuno 10% Grasa',marca:'Cuisine & Co',unidad:'500 g',precio_antes:'$5.790',precio_ahora:'Lleva 2 x $10.000',descuento:'14%'},
+      {emoji:'🐷',nombre:'Costillar Tradicional',marca:'Super Cerdo',unidad:'por kg',precio_antes:'$19.184/kg',precio_ahora:'$15.824/kg',descuento:'18%'},
+      {emoji:'🍗',nombre:'Pechuga Deshuesada',marca:'Super Pollo',unidad:'850 g aprox',precio_antes:'$7.990',precio_ahora:'$6.990',descuento:'13%'},
+      {emoji:'🍗',nombre:'Pechuga de Pollo Entera',marca:'Super Pollo',unidad:'por kg',precio_antes:'$5.841/kg',precio_ahora:'$5.121/kg',descuento:'12%'},
+      {emoji:'🥚',nombre:'Huevos Gallinas Libres Extra Color',marca:'Cuisine & Co',unidad:'20 un',precio_antes:'$8.270',precio_ahora:'$6.690',descuento:'19%'},
+      {emoji:'🐟',nombre:'Atún Lomitos en Agua',marca:'Robinson Crusoe',unidad:'140g x3',precio_antes:'$5.970',precio_ahora:'$3.990',descuento:'33%'},
+    ];
+    localStorage.setItem('ofertas',JSON.stringify(ofertas));
+    document.getElementById('ofertas-fecha').textContent='Referencia · jumbo.cl';
+    renderOfertas();
+    toast('Precios de referencia (verificar en jumbo.cl)');
+  }
+  icon.className='';btn.disabled=false;
 }
 
-function agregarIngrediente() {
-  const val = document.getElementById('ing-input').value.trim();
-  if (!val) return;
-  const cat = document.getElementById('cat-select').value;
-  despensa.push({ nombre: val, cat, qty: '' });
-  document.getElementById('ing-input').value = '';
-  save();
-  renderDespensa();
-  toast(val + ' agregado ✓');
-}
-
-document.getElementById('ing-input').addEventListener('keypress', e => {
-  if (e.key === 'Enter') agregarIngrediente();
-});
-
-// =========== PANEL 2: OFERTAS ===========
-function renderOfertas() {
-  document.getElementById('ofertas-list').innerHTML = OFERTAS.map((o, i) => `
+function renderOfertas(){
+  if(!ofertas.length){document.getElementById('ofertas-list').innerHTML='<div style="padding:20px;text-align:center;color:var(--t3)">Sin datos</div>';return;}
+  document.getElementById('ofertas-list').innerHTML=ofertas.map((o,i)=>`
     <div class="oferta-row">
-      <span class="oferta-emoji">${o.emoji}</span>
-      <div class="oferta-info">
-        <div class="oferta-nombre">${o.nombre}</div>
-        <div class="oferta-detalle">${o.marca} · ${o.unidad}</div>
+      <span class="of-emoji">${o.emoji||'🥩'}</span>
+      <div class="of-info">
+        <div class="of-name">${o.nombre}</div>
+        <div class="of-det">${o.marca} · ${o.unidad}</div>
       </div>
-      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0">
-        <div class="oferta-precio-block">
-          <div class="precio-antes">${o.precio_antes}</div>
-          <div class="precio-ahora">${o.precio}</div>
-          <div class="descuento-pill">-${o.desc}</div>
+      <div class="of-right">
+        <div>
+          <div class="p-antes">${o.precio_antes}</div>
+          <div class="p-ahora">${o.precio_ahora}</div>
+          <div class="p-desc">-${o.descuento}</div>
         </div>
-        <button class="btn-agregar-oferta ${addedOfertas.has(i)?'added':''}" id="btn-of-${i}" onclick="addOferta(${i})">
-          ${addedOfertas.has(i) ? '✓ En despensa' : '+ Despensa'}
+        <button class="btn-add-of ${addedOf.has(i)?'added':''}" onclick="addOferta(${i})">
+          ${addedOf.has(i)?'✓ En despensa':'+ Despensa'}
         </button>
       </div>
     </div>`).join('');
 }
 
-function addOferta(i) {
-  const o = OFERTAS[i];
-  addedOfertas.add(i);
-  if (!despensa.find(d => d.nombre === o.nombre)) {
-    despensa.push({ nombre: o.nombre, cat: 'proteina', qty: o.unidad });
-  }
-  save();
-  renderDespensa();
-  renderOfertas();
-  toast(o.nombre + ' en despensa ✓');
+function addOferta(i){
+  const o=ofertas[i];addedOf.add(i);
+  if(!despensa.find(d=>d.nombre===o.nombre))despensa.push({nombre:o.nombre,cat:'proteina',qty:o.unidad});
+  save();renderDespensa();renderOfertas();toast(o.nombre+' en despensa ✓');
 }
 
-// =========== PANEL 3: PLANIFICAR ===========
-function renderDias() {
-  document.getElementById('dias-config').innerHTML = DIAS.map(dia => {
-    const m = diaMode[dia] || 'cocino';
-    return `
-      <div class="dia-card">
+// P3 PLANIFICAR
+function renderDias(){
+  document.getElementById('dias-cfg').innerHTML=DIAS.map(dia=>{
+    const c=diaConfig[dia]||{temp:'caliente',slots:['almuerzo']};
+    const isCal=c.temp==='caliente';
+    const hasA=c.slots.includes('almuerzo');
+    const hasC=c.slots.includes('cena');
+    return `<div class="dia-card">
+      <div class="dia-top">
         <span class="dia-nombre">${dia}</span>
-        <div class="dia-btns">
-          <button class="dia-opt ${m==='cocino'?'sel-cocino':''}" onclick="setDia('${dia}','cocino')">Cocino</button>
-          <button class="dia-opt ${m==='rapido'?'sel-rapido':''}" onclick="setDia('${dia}','rapido')">Rápido</button>
-          <button class="dia-opt ${m==='libre'?'sel-libre':''}" onclick="setDia('${dia}','libre')">Libre</button>
+        <div class="temp-toggle">
+          <button class="tbtn ${!isCal?'frio':''}" onclick="setTemp('${dia}','frio')">❄️ Frío</button>
+          <button class="tbtn ${isCal?'caliente':''}" onclick="setTemp('${dia}','caliente')">🔥 Caliente</button>
         </div>
-      </div>`;
+      </div>
+      <div class="slots-grid">
+        <div class="cslot ${hasA?'on':''}" onclick="toggleSlot('${dia}','almuerzo')">
+          <div class="slot-icon">☀️</div>
+          <div class="slot-lbl">Almuerzo</div>
+          <div class="slot-sub">${hasA?'Activo — se cocina':'Toca para activar'}</div>
+        </div>
+        <div class="cslot ${hasC?'on':''}" onclick="toggleSlot('${dia}','cena')">
+          <div class="slot-icon">🌙</div>
+          <div class="slot-lbl">Cena / Once</div>
+          <div class="slot-sub">${hasC?'Activo — se cocina':'Toca para activar'}</div>
+        </div>
+      </div>
+    </div>`;
   }).join('');
 }
 
-function setDia(dia, mode) {
-  diaMode[dia] = mode;
-  save();
-  renderDias();
+function setTemp(dia,temp){diaConfig[dia].temp=temp;save();renderDias();}
+
+function toggleSlot(dia,slot){
+  const s=diaConfig[dia].slots;
+  const idx=s.indexOf(slot);
+  if(idx>-1)s.splice(idx,1);else s.push(slot);
+  save();renderDias();
 }
 
-async function generarMenu() {
-  const btn = document.querySelector('#panel-3 .btn-green');
-  btn.disabled = true;
-  btn.textContent = 'Generando...';
-  document.getElementById('menu-result').innerHTML = `<div class="loading"><div class="dot"></div><div class="dot"></div><div class="dot"></div> Armando tu menú...</div>`;
+async function generarMenu(){
+  const btn=document.querySelector('#panel-3 .btn-g');
+  btn.disabled=true;btn.textContent='Generando...';
+  document.getElementById('menu-result').innerHTML=`<div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div> Armando tu menú personalizado...</div>`;
 
-  const conf = DIAS.map(d => `${d}: ${diaMode[d]}`).join(', ');
-  const desp = despensa.map(d => d.nombre).join(', ') || 'ingredientes básicos';
-  const ofert = OFERTAS.map(o => o.nombre).join(', ');
+  const conf=DIAS.map(d=>{
+    const c=diaConfig[d];
+    const s=c.slots.length?c.slots.join(' y '):'ninguna (día libre)';
+    return `${d}: ${s}, clima ${c.temp==='caliente'?'caluroso':'frío'}`;
+  }).join(' | ');
+  const desp=despensa.map(d=>d.nombre).join(', ')||'ingredientes básicos de cocina chilena';
+  const ofert=ofertas.length?ofertas.map(o=>o.nombre).join(', '):'carnes y pescados variados';
 
-  try {
-    const resp = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        messages: [{
-          role: 'user',
-          content: `Eres un asistente de cocina chilena. Genera un menú semanal considerando:
-- Configuración días: ${conf}
-- Despensa disponible: ${desp}
-- Proteínas con oferta en Jumbo esta semana: ${ofert}
+  try{
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+      model:'claude-sonnet-4-20250514',max_tokens:2000,
+      messages:[{role:'user',content:`Eres experta en cocina chilena casera. Genera menú semanal.
+Configuración: ${conf}
+Despensa: ${desp}
+Proteínas en oferta Jumbo: ${ofert}
 
-Reglas:
-- "cocino": receta chilena completa aprovechando despensa y ofertas
-- "rapido": receta en menos de 20 minutos con lo que hay
-- "libre": null
+REGLAS:
+- Cada comida SIEMPRE incluye proteína + ensalada O acompañamiento (ej: "Pollo a la plancha" + "Ensalada de tomate y lechuga")
+- Clima FRÍO → platos calientes: cazuelas, guisos, horneados, sopas, estofados
+- Clima CALUROSO → platos frescos o ligeros: ensalada con proteína fría/plancha, ceviche, carpaccio, wok rápido
+- Alternar proteínas entre días (no repetir misma dos días seguidos)
+- Aprovechar ofertas Jumbo cuando sea posible
+- Comidas caseras chilenas reales y variadas
+- Para días sin slots activos: pon null en almuerzo y cena
 
-Responde SOLO JSON sin backticks: {"dias":{"Lunes":{"almuerzo":"nombre receta","usa_oferta":true,"usa_despensa":true,"tipo":"cocino"},...}}
-Para días libre: {"almuerzo":null,"tipo":"libre"}`
-        }]
-      })
-    });
-    const data = await resp.json();
-    const txt = data.content.map(i => i.text||'').join('').trim();
+Responde SOLO JSON sin backticks:
+{"dias":{"Lunes":{"almuerzo":{"proteina":"Pollo a la plancha con limón","ensalada_o_acomp":"Ensalada de lechuga tomate y palta","usa_oferta":false},"cena":null},...}}`}]
+    })});
+    const data=await resp.json();
+    const txt=data.content.map(i=>i.text||'').join('').trim().replace(/```json|```/g,'');
     renderMenu(JSON.parse(txt).dias);
-  } catch(e) {
-    const fallback = {};
-    DIAS.forEach((d, i) => {
-      const m = diaMode[d];
-      if (m === 'libre') fallback[d] = { almuerzo: null, tipo: 'libre' };
-      else if (m === 'rapido') fallback[d] = { almuerzo: RAPIDOS[i % RAPIDOS.length], tipo: 'rapido', usa_oferta: false, usa_despensa: true };
-      else fallback[d] = { almuerzo: NORMALES[i % NORMALES.length], tipo: 'cocino', usa_oferta: i < 3, usa_despensa: true };
+  }catch(e){
+    const pCal=['Cazuela de vacuno','Pollo al horno','Pastel de papas','Merluza al horno','Guiso de lentejas con longaniza','Lomo a lo pobre'];
+    const pFri=['Pollo a la plancha con limón','Atún con ensalada','Reineta frita','Huevos revueltos con tomate','Pechuga con palta'];
+    const aCal=['Arroz graneado','Puré de papas','Papas cocidas con perejil','Fideos al mantequilla'];
+    const aFri=['Ensalada de lechuga y tomate','Ensalada mixta con aceitunas','Ensalada de pepino y cebolla'];
+    const fb={};let pi=0;
+    DIAS.forEach(d=>{
+      const c=diaConfig[d];fb[d]={almuerzo:null,cena:null};
+      ['almuerzo','cena'].forEach(s=>{
+        if(!c.slots.includes(s))return;
+        const fr=c.temp==='frio';
+        fb[d][s]={proteina:(fr?pFri:pCal)[pi%6],ensalada_o_acomp:(fr?aFri:aCal)[pi%4],usa_oferta:pi<3};
+        pi++;
+      });
     });
-    renderMenu(fallback);
+    renderMenu(fb);
   }
-
-  btn.disabled = false;
-  btn.textContent = 'Generar menú con IA →';
+  btn.disabled=false;btn.textContent='Generar menú con IA →';
 }
 
-function renderMenu(dias) {
-  document.getElementById('menu-result').innerHTML = `
-    <div style="font-family:'Fraunces',serif;font-size:18px;font-weight:500;color:var(--text);margin-bottom:12px">Tu menú esta semana</div>
-    ${DIAS.map(dia => {
-      const d = dias[dia] || {};
-      if (d.tipo === 'libre' || !d.almuerzo) return `
-        <div class="menu-card" style="opacity:0.55">
-          <div class="menu-dia-header">
-            <span class="menu-dia-nombre">${dia}</span>
-            <span class="badge badge-red">Día libre</span>
-          </div>
-          <div style="font-size:13px;color:var(--text-3)">Sin cocinar ✌️</div>
+function renderMenu(dias){
+  const hayCosas=DIAS.some(d=>{const v=dias[d];return v&&(v.almuerzo||v.cena);});
+  if(!hayCosas){
+    document.getElementById('menu-result').innerHTML=`<div class="card" style="text-align:center;padding:20px;color:var(--t3)">Activa al menos un almuerzo o cena en algún día.</div>`;
+    return;
+  }
+  document.getElementById('menu-result').innerHTML=`
+    <div style="font-family:'Fraunces',serif;font-size:18px;font-weight:500;color:var(--t);margin-bottom:12px">Tu menú esta semana</div>
+    ${DIAS.map(dia=>{
+      const d=dias[dia]||{};const c=diaConfig[dia]||{temp:'caliente'};
+      if(!d.almuerzo&&!d.cena) return `
+        <div class="mc" style="opacity:.5">
+          <div class="mc-top"><span class="mc-dia">${dia}</span><span class="badge br">Día libre</span></div>
+          <div style="font-size:13px;color:var(--t3)">Sin cocinar ✌️</div>
         </div>`;
-      return `
-        <div class="menu-card">
-          <div class="menu-dia-header">
-            <span class="menu-dia-nombre">${dia}</span>
-            ${d.tipo==='rapido' ? '<span class="badge badge-amber">Rápido</span>' : ''}
-          </div>
-          <div class="menu-almuerzo-label">Almuerzo</div>
-          <div class="menu-almuerzo">${d.almuerzo}</div>
-          <div class="menu-tags">
-            ${d.usa_oferta ? '<span class="badge badge-red">🏷️ Oferta Jumbo</span>' : ''}
-            ${d.usa_despensa ? '<span class="badge badge-blue">🧺 Desde despensa</span>' : ''}
-          </div>
-        </div>`;
+      const isFri=c.temp==='frio';
+      const slots=[{key:'almuerzo',icon:'☀️',label:'Almuerzo'},{key:'cena',icon:'🌙',label:'Cena / Once'}];
+      return `<div class="mc">
+        <div class="mc-top">
+          <span class="mc-dia">${dia}</span>
+          <span class="badge ${isFri?'bb':'br'}">${isFri?'❄️ Frío':'🔥 Caliente'}</span>
+        </div>
+        ${slots.map(s=>{
+          const sv=d[s.key];if(!sv)return'';
+          return `<div class="cblock">
+            <div class="cb-tipo">${s.icon} ${s.label}</div>
+            <div class="cb-prot">${sv.proteina}</div>
+            <div class="cb-ac">+ ${sv.ensalada_o_acomp}</div>
+            <div class="cb-tags">
+              ${sv.usa_oferta?'<span class="badge br">🏷️ Oferta Jumbo</span>':''}
+              <span class="badge bb">🧺 Usa despensa</span>
+            </div>
+          </div>`;
+        }).join('')}
+      </div>`;
     }).join('')}
-    <button class="btn btn-outline" style="margin-top:4px" onclick="pedirRecetas()">
-      Ver recetas detalladas →
-    </button>`;
+    <button class="btn btn-o" style="margin-top:4px" onclick="toast('Abre Claude y pídele: Dame las recetas del menú')">Ver recetas detalladas →</button>`;
 }
 
-function pedirRecetas() {
-  toast('Abre Claude y pídele las recetas del menú');
+// P4 POSTRES
+function selTipo(el){
+  document.querySelectorAll('.ptipo').forEach(p=>p.classList.remove('sel'));
+  el.classList.add('sel');postreTipo=el.dataset.t;
 }
 
-// =========== iOS INSTALL ===========
-function dismissInstall() {
-  document.getElementById('install-banner').classList.remove('show');
-  localStorage.setItem('installDismissed', '1');
+function selDif(el){
+  document.querySelectorAll('.dbtn').forEach(b=>b.classList.remove('sel'));
+  el.classList.add('sel');postreDif=el.dataset.d;
 }
 
-function checkInstall() {
-  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-  const isStandalone = window.navigator.standalone;
-  const dismissed = localStorage.getItem('installDismissed');
-  if (isIOS && !isStandalone && !dismissed) {
-    setTimeout(() => document.getElementById('install-banner').classList.add('show'), 1500);
+async function generarPostre(){
+  const btn=document.querySelector('#panel-4 .btn-g');
+  btn.disabled=true;btn.textContent='Buscando postre...';
+  document.getElementById('postre-result').innerHTML=`<div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div> Consultando a la IA...</div>`;
+
+  const personas=document.getElementById('postre-pers').value;
+  const tipoLabel={torta:'torta o kuchen',mousse:'mousse o flan',galletas:'galletas o masas',frio:'postre frío sin horno',frutas:'postre con frutas de temporada',sorpresa:'cualquier postre sorpresa'}[postreTipo];
+  const desp=despensa.map(d=>d.nombre).join(', ')||'ingredientes básicos';
+
+  try{
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+      model:'claude-sonnet-4-20250514',max_tokens:800,
+      messages:[{role:'user',content:`Sugiere UN postre chileno o clásico de tipo: ${tipoLabel}. Para ${personas} personas. Dificultad: ${postreDif}. Despensa disponible: ${desp}. Responde SOLO JSON sin backticks: {"nombre":"...","descripcion":"...","tiempo":"...","ingredientes_clave":["...","...","..."],"ingredientes_comprar":["..."],"tip":"..."}`}]
+    })});
+    const data=await resp.json();
+    const txt=data.content.map(i=>i.text||'').join('').trim().replace(/```json|```/g,'');
+    renderPostre(JSON.parse(txt));
+  }catch(e){
+    const fb={
+      torta:{nombre:'Kuchen de manzana',descripcion:'El clásico kuchen alemán-chileno con masa arenilla y manzanas caramelizadas con canela.',tiempo:'1h 20min',ingredientes_clave:['Harina','Mantequilla','Manzanas','Azúcar','Huevos','Canela'],ingredientes_comprar:['Manzanas'],tip:'La masa queda mejor si la enfríai 30 min antes de usarla'},
+      mousse:{nombre:'Mousse de manjar',descripcion:'Postre cremoso y suave con ese sabor inconfundible del manjar chileno.',tiempo:'30min + 2h frío',ingredientes_clave:['Manjar','Crema','Gelatina sin sabor'],ingredientes_comprar:['Manjar','Crema'],tip:'Batir la crema a punto nieve para que quede esponjoso'},
+      galletas:{nombre:'Alfajores de maicena',descripcion:'Las clásicas galletas suaves rellenas de manjar, el favorito de toda Chile.',tiempo:'45min',ingredientes_clave:['Maicena','Harina','Mantequilla','Manjar'],ingredientes_comprar:['Manjar'],tip:'No amasar demasiado para que queden tiernas y se deshagan'},
+      frio:{nombre:'Leche nevada',descripcion:'Postre fresco y liviano, perfecto para los días de calor.',tiempo:'20min + 2h frío',ingredientes_clave:['Leche','Huevos','Azúcar','Vainilla'],ingredientes_comprar:[],tip:'Servir bien frío con canela en polvo encima'},
+      frutas:{nombre:'Ensalada de frutas con crema',descripcion:'Frutas de temporada con crema batida y almíbar ligero, rápida y deliciosa.',tiempo:'20min',ingredientes_clave:['Frutas variadas','Crema','Azúcar','Limón'],ingredientes_comprar:['Frutas de temporada'],tip:'Agregar ralladura de naranja al almíbar para darle sabor especial'},
+      sorpresa:{nombre:'Arroz con leche',descripcion:'El postre más querido de Chile, cremoso, con canela y ese olor que llena la casa.',tiempo:'45min',ingredientes_clave:['Arroz','Leche','Azúcar','Canela','Vainilla'],ingredientes_comprar:[],tip:'Revolver constantemente a fuego bajo para que quede cremoso y no se pegue'},
+    };
+    renderPostre(fb[postreTipo]||fb.sorpresa);
   }
+  btn.disabled=false;btn.textContent='Sugerir postre con IA →';
 }
 
-// =========== SERVICE WORKER ===========
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js').catch(() => {});
-  });
+function renderPostre(p){
+  document.getElementById('postre-result').innerHTML=`
+    <div class="card" style="border-color:var(--pk)">
+      <div style="font-family:'Fraunces',serif;font-size:20px;font-weight:500;color:var(--t);margin-bottom:6px">🍮 ${p.nombre}</div>
+      <div style="font-size:14px;color:var(--t2);margin-bottom:12px;line-height:1.6">${p.descripcion}</div>
+      <span class="badge bpk" style="margin-bottom:14px;display:inline-flex">⏱ ${p.tiempo}</span>
+      <div class="lbl" style="margin-top:8px">Ingredientes principales</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px">
+        ${(p.ingredientes_clave||[]).map(i=>`<span class="badge bg-b">${i}</span>`).join('')}
+      </div>
+      ${p.ingredientes_comprar&&p.ingredientes_comprar.length?`
+        <div class="lbl">Necesitas comprar</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px">
+          ${p.ingredientes_comprar.map(i=>`<span class="badge br">🛒 ${i}</span>`).join('')}
+        </div>`:`<div style="margin-bottom:12px"><span class="badge bv">✓ Tienes todo en casa</span></div>`}
+      ${p.tip?`<div style="background:var(--al);border-radius:var(--rads);padding:10px 14px;font-size:13px;color:var(--a)">💡 <b>Tip:</b> ${p.tip}</div>`:''}
+    </div>`;
 }
 
-// =========== INIT ===========
+// INSTALL
+function dismissInstall(){
+  document.getElementById('install-banner').classList.remove('show');
+  localStorage.setItem('installDismissed','1');
+}
+function checkInstall(){
+  const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+  if(isIOS&&!window.navigator.standalone&&!localStorage.getItem('installDismissed'))
+    setTimeout(()=>document.getElementById('install-banner').classList.add('show'),1000);
+}
+
+if('serviceWorker' in navigator)
+  window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+
+// INIT
 renderDespensa();
-renderOfertas();
 renderDias();
+if(ofertas.length)renderOfertas();
 checkInstall();
 </script>
 </body>
