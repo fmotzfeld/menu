@@ -210,18 +210,28 @@ input:focus,select:focus{border-color:var(--vm)}
 
   <div class="content">
 
-    <!-- P0 RECETAS (foto) -->
+    <!-- P0 RECETAS (foto o link) -->
     <div class="panel active" id="panel-0">
-      <div class="stitle">Foto de receta</div>
-      <div class="ssub">Sube una foto y la IA extrae los ingredientes para tu despensa</div>
-      <input type="file" id="foto-input" accept="image/*" capture="environment" style="display:none">
-      <img id="foto-preview">
-      <div class="upload-area" id="upload-area" onclick="document.getElementById('foto-input').click()">
-        <div style="font-size:40px;margin-bottom:8px">📷</div>
-        <div style="font-size:15px;color:var(--t2);font-weight:500">Tomar o subir foto</div>
-        <div style="font-size:13px;color:var(--t3);margin-top:4px">Página de libro, recorte de revista, etc.</div>
+      <div class="stitle">Agregar receta</div>
+      <div class="ssub">Sube una foto o pega un link — la IA extrae los ingredientes</div>
+      <div style="display:flex;gap:6px;margin-bottom:14px">
+        <button id="rec-tab-foto" onclick="recTab('foto')" style="flex:1;padding:9px;border-radius:var(--rads);border:.5px solid var(--vm);background:var(--vl);color:var(--v);font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer">📷 Foto</button>
+        <button id="rec-tab-link" onclick="recTab('link')" style="flex:1;padding:9px;border-radius:var(--rads);border:.5px solid var(--bd2);background:transparent;color:var(--t3);font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer">🔗 Link</button>
       </div>
-      <button class="btn btn-g" id="btn-analizar" disabled onclick="analizarReceta()" style="margin-bottom:12px">Analizar con IA →</button>
+      <div id="rec-modo-foto">
+        <input type="file" id="foto-input" accept="image/*" capture="environment" style="display:none">
+        <img id="foto-preview">
+        <div class="upload-area" id="upload-area" onclick="document.getElementById('foto-input').click()">
+          <div style="font-size:40px;margin-bottom:8px">📷</div>
+          <div style="font-size:15px;color:var(--t2);font-weight:500">Tomar o subir foto</div>
+          <div style="font-size:13px;color:var(--t3);margin-top:4px">Página de libro, recorte de revista, etc.</div>
+        </div>
+        <button class="btn btn-g" id="btn-analizar" disabled onclick="analizarReceta()" style="margin-bottom:12px">Analizar con IA →</button>
+      </div>
+      <div id="rec-modo-link" style="display:none">
+        <input type="text" id="rec-url-input" placeholder="https://www.receta.cl/pollo-al-horno..." style="margin-bottom:10px">
+        <button class="btn btn-g" id="btn-analizar-url" onclick="analizarURL('receta')" style="margin-bottom:12px">Extraer ingredientes →</button>
+      </div>
       <div id="receta-result"></div>
     </div>
 
@@ -289,14 +299,24 @@ input:focus,select:focus{border-color:var(--vm)}
       <!-- subir nueva receta de postre -->
       <div class="card" style="margin-bottom:16px">
         <div class="lbl">Agregar receta de postre</div>
-        <input type="file" id="postre-foto-input" accept="image/*" capture="environment" style="display:none">
-        <div id="postre-upload-area" class="upload-area" style="padding:20px;margin-bottom:10px" onclick="document.getElementById('postre-foto-input').click()">
-          <div style="font-size:28px;margin-bottom:6px">📷</div>
-          <div style="font-size:14px;color:var(--t2);font-weight:500">Foto de receta de postre</div>
-          <div style="font-size:12px;color:var(--t3);margin-top:3px">La IA extrae nombre e ingredientes</div>
+        <div style="display:flex;gap:6px;margin-bottom:12px">
+          <button id="pos-tab-foto" onclick="posTab('foto')" style="flex:1;padding:8px;border-radius:var(--rads);border:.5px solid var(--pk);background:var(--pkl);color:var(--pk);font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer">📷 Foto</button>
+          <button id="pos-tab-link" onclick="posTab('link')" style="flex:1;padding:8px;border-radius:var(--rads);border:.5px solid var(--bd2);background:transparent;color:var(--t3);font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer">🔗 Link</button>
         </div>
-        <img id="postre-preview" style="display:none;width:100%;max-height:160px;object-fit:cover;border-radius:var(--rads);margin-bottom:10px">
-        <button class="btn btn-g" id="btn-analizar-postre" disabled onclick="analizarPostre()">Agregar postre con IA →</button>
+        <div id="pos-modo-foto">
+          <input type="file" id="postre-foto-input" accept="image/*" capture="environment" style="display:none">
+          <div id="postre-upload-area" class="upload-area" style="padding:20px;margin-bottom:10px" onclick="document.getElementById('postre-foto-input').click()">
+            <div style="font-size:28px;margin-bottom:6px">📷</div>
+            <div style="font-size:14px;color:var(--t2);font-weight:500">Foto de receta de postre</div>
+            <div style="font-size:12px;color:var(--t3);margin-top:3px">La IA extrae nombre e ingredientes</div>
+          </div>
+          <img id="postre-preview" style="display:none;width:100%;max-height:160px;object-fit:cover;border-radius:var(--rads);margin-bottom:10px">
+          <button class="btn btn-g" id="btn-analizar-postre" disabled onclick="analizarPostre()" style="background:var(--pk)">Agregar postre con IA →</button>
+        </div>
+        <div id="pos-modo-link" style="display:none">
+          <input type="text" id="pos-url-input" placeholder="https://www.receta.cl/kuchen-manzana..." style="margin-bottom:10px">
+          <button class="btn btn-g" onclick="analizarURL('postre')" style="background:var(--pk)">Extraer receta →</button>
+        </div>
       </div>
 
       <div id="postres-lista"></div>
@@ -470,6 +490,90 @@ function toast(m){
 // ═══════════════════════════════════════════════
 // P0 — FOTO DE RECETA
 // ═══════════════════════════════════════════════
+// ═══════════════════════════════════════════════
+// TABS FOTO / LINK (receta y postre)
+// ═══════════════════════════════════════════════
+function recTab(mode){
+  const isFoto = mode==='foto';
+  document.getElementById('rec-modo-foto').style.display = isFoto?'block':'none';
+  document.getElementById('rec-modo-link').style.display = isFoto?'none':'block';
+  document.getElementById('rec-tab-foto').style.background = isFoto?'var(--vl)':'transparent';
+  document.getElementById('rec-tab-foto').style.borderColor = isFoto?'var(--vm)':'var(--bd2)';
+  document.getElementById('rec-tab-foto').style.color = isFoto?'var(--v)':'var(--t3)';
+  document.getElementById('rec-tab-link').style.background = isFoto?'transparent':'var(--vl)';
+  document.getElementById('rec-tab-link').style.borderColor = isFoto?'var(--bd2)':'var(--vm)';
+  document.getElementById('rec-tab-link').style.color = isFoto?'var(--t3)':'var(--v)';
+  document.getElementById('receta-result').innerHTML='';
+}
+
+function posTab(mode){
+  const isFoto = mode==='foto';
+  document.getElementById('pos-modo-foto').style.display = isFoto?'block':'none';
+  document.getElementById('pos-modo-link').style.display = isFoto?'none':'block';
+  document.getElementById('pos-tab-foto').style.background = isFoto?'var(--pkl)':'transparent';
+  document.getElementById('pos-tab-foto').style.borderColor = isFoto?'var(--pk)':'var(--bd2)';
+  document.getElementById('pos-tab-foto').style.color = isFoto?'var(--pk)':'var(--t3)';
+  document.getElementById('pos-tab-link').style.background = isFoto?'transparent':'var(--pkl)';
+  document.getElementById('pos-tab-link').style.borderColor = isFoto?'var(--bd2)':'var(--pk)';
+  document.getElementById('pos-tab-link').style.color = isFoto?'var(--t3)':'var(--pk)';
+}
+
+// ═══════════════════════════════════════════════
+// ANALIZAR URL (receta o postre)
+// ═══════════════════════════════════════════════
+async function analizarURL(tipo){
+  const inputId = tipo==='receta' ? 'rec-url-input' : 'pos-url-input';
+  const url = document.getElementById(inputId).value.trim();
+  if(!url){ toast('Pega un link primero'); return; }
+  if(!url.startsWith('http')){ toast('El link debe empezar con http...'); return; }
+
+  const resultId = tipo==='receta' ? 'receta-result' : 'postre-url-result';
+  const btnId = tipo==='receta' ? 'btn-analizar-url' : null;
+  const btn = btnId ? document.getElementById(btnId) : null;
+  if(btn){ btn.disabled=true; btn.textContent='Extrayendo...'; }
+
+  const resultEl = tipo==='receta'
+    ? document.getElementById('receta-result')
+    : document.getElementById('postres-lista');
+
+  if(tipo==='receta'){
+    resultEl.innerHTML=`<div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div> Leyendo la página...</div>`;
+  } else {
+    // insert loading before the list
+    const insertEl = document.getElementById('postres-lista');
+    insertEl.insertAdjacentHTML('beforebegin','<div id="postre-url-loading" class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div> Leyendo la página...</div>');
+  }
+
+  try{
+    const prompt = tipo==='receta'
+      ? `Visita esta URL y extrae la receta de cocina: ${url}\nRetorna SOLO JSON sin backticks: {"nombre":"...","porciones":"...","ingredientes":[{"nombre":"...","cantidad":"..."}]}`
+      : `Visita esta URL y extrae la receta de postre: ${url}\nRetorna SOLO JSON sin backticks: {"nombre":"...","porciones":"...","tiempo":"...","ingredientes":[{"nombre":"...","cantidad":"..."}],"notas":"..."}`;
+
+    const resp = await callAI([{role:'user',content:prompt}], true);
+    const receta = JSON.parse(resp);
+
+    if(tipo==='receta'){
+      renderReceta(receta);
+    } else {
+      const loading = document.getElementById('postre-url-loading');
+      if(loading) loading.remove();
+      postres.push(receta);
+      save(); renderPostres();
+      document.getElementById('pos-url-input').value='';
+      toast('Receta de postre guardada ✓');
+    }
+  }catch(e){
+    if(tipo==='receta'){
+      resultEl.innerHTML=`<div class="card" style="color:var(--r);font-size:14px">No pude leer esa página. Intenta con otro link o usa la opción de foto.</div>`;
+    } else {
+      const loading = document.getElementById('postre-url-loading');
+      if(loading) loading.remove();
+      toast('No pude leer ese link — intenta con foto');
+    }
+  }
+  if(btn){ btn.disabled=false; btn.textContent='Extraer ingredientes →'; }
+}
+
 document.getElementById('foto-input').addEventListener('change',function(e){
   const f=e.target.files[0]; if(!f) return;
   uploadedFile=f;
