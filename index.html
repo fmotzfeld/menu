@@ -21,23 +21,41 @@
   --g:#888780;--gl:#F1EFE8;
   --pk:#993356;--pkl:#FBEAF0;
   --t:#1a1a18;--t2:#5F5E5A;--t3:#888780;
-  --bg:#fafaf8;--bg2:#f3f2ef;--bg3:#eceae4;
+  --bg:#fafaf8;--bg2:#f3f2ef;
   --bd:rgba(60,55,45,0.12);--bd2:rgba(60,55,45,0.22);
   --rad:12px;--rads:8px;
   --sb:env(safe-area-inset-bottom,0px);--st:env(safe-area-inset-top,0px);
 }
 @media(prefers-color-scheme:dark){:root{
   --t:#f0ede6;--t2:#b4b2a9;--t3:#888780;
-  --bg:#1c1c1a;--bg2:#242420;--bg3:#2c2c28;
+  --bg:#1c1c1a;--bg2:#242420;
   --bd:rgba(255,255,255,0.1);--bd2:rgba(255,255,255,0.18);
   --vl:#1a2e0a;--rl:#2e1208;--al:#2a1a04;--bl:#0a1828;--pkl:#200a10;
 }}
 html,body{height:100%;background:var(--bg);color:var(--t);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.5;overscroll-behavior:none;-webkit-font-smoothing:antialiased}
+
+/* ── LOGIN SCREEN ── */
+.login-screen{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;z-index:999}
+.login-logo{width:72px;height:72px;background:var(--vl);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:34px;margin-bottom:20px}
+.login-title{font-family:'Fraunces',serif;font-size:26px;font-weight:500;color:var(--t);margin-bottom:6px;text-align:center}
+.login-sub{font-size:14px;color:var(--t3);margin-bottom:32px;text-align:center}
+.login-input-wrap{width:100%;max-width:280px;margin-bottom:12px}
+.login-input-wrap input{width:100%;padding:14px 16px;border:.5px solid var(--bd2);border-radius:var(--rads);font-size:16px;font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t);outline:none;text-align:center;letter-spacing:4px;font-size:22px}
+.login-input-wrap input:focus{border-color:var(--vm)}
+.login-btn{width:100%;max-width:280px;padding:14px;background:var(--v);color:#fff;border:none;border-radius:var(--rads);font-size:16px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;margin-bottom:16px}
+.login-err{font-size:13px;color:var(--r);text-align:center;min-height:18px}
+.login-hint{font-size:12px;color:var(--t3);text-align:center;margin-top:16px;line-height:1.6}
+.login-new{margin-top:24px;width:100%;max-width:280px}
+.login-new input{margin-bottom:10px;letter-spacing:normal;font-size:15px;text-align:left}
+
+/* ── APP ── */
 .app{display:flex;flex-direction:column;height:100dvh;max-width:500px;margin:0 auto}
-.hdr{flex-shrink:0;padding:calc(var(--st) + 14px) 20px 14px;background:var(--bg);border-bottom:.5px solid var(--bd);display:flex;align-items:center;gap:12px}
+.hdr{flex-shrink:0;padding:calc(var(--st) + 14px) 16px 14px;background:var(--bg);border-bottom:.5px solid var(--bd);display:flex;align-items:center;gap:12px}
 .logo{width:40px;height:40px;background:var(--vl);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
-.app-title{font-family:'Fraunces',serif;font-size:20px;font-weight:500;color:var(--t)}
-.app-sub{font-size:12px;color:var(--t3);margin-top:1px}
+.app-title{font-family:'Fraunces',serif;font-size:19px;font-weight:500;color:var(--t)}
+.app-sub{font-size:11px;color:var(--t3);margin-top:1px}
+.hdr-user{margin-left:auto;display:flex;align-items:center;gap:8px}
+.hdr-avatar{width:30px;height:30px;background:var(--vl);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;color:var(--v);cursor:pointer}
 .content{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 16px calc(var(--sb) + 86px)}
 .bnav{flex-shrink:0;position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:500px;background:var(--bg);border-top:.5px solid var(--bd);display:flex;padding-bottom:var(--sb);z-index:100}
 .ni{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 2px;border:none;background:none;cursor:pointer;color:var(--t3);font-size:10px;font-family:'DM Sans',sans-serif;font-weight:500;gap:3px}
@@ -46,49 +64,54 @@ html,body{height:100%;background:var(--bg);color:var(--t);font-family:'DM Sans',
 .ni-dot{width:4px;height:4px;border-radius:50%;background:var(--v);opacity:0}
 .ni.active .ni-dot{opacity:1}
 .panel{display:none}.panel.active{display:block}
+
+/* ── SHARED ── */
 .stitle{font-family:'Fraunces',serif;font-size:20px;font-weight:500;color:var(--t);margin-bottom:4px}
 .ssub{font-size:13px;color:var(--t3);margin-bottom:16px}
 .card{background:var(--bg);border:.5px solid var(--bd);border-radius:var(--rad);padding:14px 16px;margin-bottom:10px}
 .btn{width:100%;padding:13px 16px;border-radius:var(--rads);font-size:15px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;border:none;transition:opacity .15s,transform .1s}
 .btn:active{transform:scale(.98)}
-.btn-g{background:var(--v);color:#fff}
-.btn-g:disabled{opacity:.4;cursor:not-allowed}
+.btn-g{background:var(--v);color:#fff}.btn-g:disabled{opacity:.4;cursor:not-allowed}
 .btn-o{background:transparent;color:var(--t);border:.5px solid var(--bd2)}
 .badge{display:inline-flex;align-items:center;font-size:11px;font-weight:500;padding:3px 8px;border-radius:var(--rads)}
 .bv{background:var(--vl);color:var(--v)}.br{background:var(--rl);color:var(--r)}
 .ba{background:var(--al);color:var(--a)}.bb{background:var(--bl);color:var(--b)}
 .bg-b{background:var(--gl);color:var(--g)}.bpk{background:var(--pkl);color:var(--pk)}
 .lbl{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.5px;color:var(--t3);margin-bottom:8px}
-input[type=text],select{width:100%;padding:11px 14px;border:.5px solid var(--bd2);border-radius:var(--rads);font-size:15px;font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t);outline:none;-webkit-appearance:none}
-input[type=text]:focus,select:focus{border-color:var(--vm)}
+input[type=text],input[type=password],select{width:100%;padding:11px 14px;border:.5px solid var(--bd2);border-radius:var(--rads);font-size:15px;font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t);outline:none;-webkit-appearance:none}
+input:focus,select:focus{border-color:var(--vm)}
 .dots{display:flex;align-items:center;justify-content:center;gap:6px;padding:24px;color:var(--t3);font-size:14px}
 .dot{width:6px;height:6px;background:var(--vm);border-radius:50%;animation:pulse 1s infinite}
 .dot:nth-child(2){animation-delay:.15s}.dot:nth-child(3){animation-delay:.3s}
 @keyframes pulse{0%,80%,100%{transform:scale(.5);opacity:.5}40%{transform:scale(1);opacity:1}}
-/* foto */
+.info-banner{background:var(--bg2);border-radius:var(--rads);padding:10px 14px;font-size:12px;color:var(--t3);margin-bottom:14px}
+
+/* P0 foto */
 .upload-area{border:1.5px dashed var(--bd2);border-radius:var(--rad);padding:32px 20px;text-align:center;cursor:pointer;margin-bottom:12px}
 .upload-area:active{background:var(--bg2)}
 #foto-preview{width:100%;max-height:200px;object-fit:cover;border-radius:var(--rad);margin-bottom:12px;display:none}
 .ing-row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:.5px solid var(--bd);font-size:14px}
 .ing-row:last-child{border-bottom:none}
-/* despensa */
+
+/* P1 despensa */
 .add-row{display:flex;gap:8px;margin-bottom:10px}
 .add-row input{flex:1}
 .add-row button{padding:11px 16px;background:var(--v);color:#fff;border:none;border-radius:var(--rads);font-size:15px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;flex-shrink:0}
 .dgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .ic{background:var(--bg);border:.5px solid var(--bd);border-radius:var(--rads);padding:10px 12px;position:relative}
-.ic-name{font-size:14px;font-weight:500;color:var(--t);margin-bottom:3px}
+.ic-name{font-size:14px;font-weight:500;color:var(--t);margin-bottom:3px;padding-right:20px}
 .ic-qty{font-size:12px;color:var(--t3);margin-bottom:6px}
 .ic-del{position:absolute;top:8px;right:8px;background:none;border:none;font-size:16px;color:var(--t3);cursor:pointer;line-height:1}
-/* ofertas */
+
+/* P2 ofertas */
 .jumbo-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.jumbo-pill{background:#e8001e;color:#fff;font-size:12px;font-weight:700;padding:4px 10px;border-radius:5px;letter-spacing:.3px;flex-shrink:0}
+.jumbo-pill{background:#e8001e;color:#fff;font-size:12px;font-weight:700;padding:4px 10px;border-radius:5px;flex-shrink:0}
 .refresh-btn{display:flex;align-items:center;gap:5px;padding:6px 12px;background:transparent;border:.5px solid var(--bd2);border-radius:var(--rads);font-size:12px;color:var(--t2);font-family:'DM Sans',sans-serif;cursor:pointer}
-.spinning{display:inline-block;animation:spin .8s linear infinite}
+.spin{display:inline-block;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .oferta-row{display:flex;align-items:center;padding:12px 0;border-bottom:.5px solid var(--bd);gap:10px}
 .oferta-row:last-child{border-bottom:none}
-.of-emoji{font-size:22px;min-width:32px;text-align:center}
+.of-emoji{font-size:22px;min-width:30px;text-align:center}
 .of-info{flex:1;min-width:0}
 .of-name{font-size:13px;font-weight:500;color:var(--t)}
 .of-det{font-size:11px;color:var(--t3);margin-top:1px}
@@ -98,7 +121,8 @@ input[type=text]:focus,select:focus{border-color:var(--vm)}
 .p-desc{background:var(--rl);color:var(--r);font-size:11px;font-weight:500;padding:2px 5px;border-radius:4px}
 .btn-add-of{padding:5px 10px;background:transparent;border:.5px solid var(--vm);border-radius:var(--rads);color:var(--v);font-size:11px;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;white-space:nowrap}
 .btn-add-of.added{background:var(--vl)}
-/* planificar */
+
+/* P3 planificar */
 .dia-card{background:var(--bg);border:.5px solid var(--bd);border-radius:var(--rad);padding:13px 14px;margin-bottom:8px}
 .dia-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
 .dia-nombre{font-size:15px;font-weight:500;color:var(--t)}
@@ -113,7 +137,6 @@ input[type=text]:focus,select:focus{border-color:var(--vm)}
 .slot-lbl{font-size:13px;font-weight:500;color:var(--t2)}
 .cslot.on .slot-lbl{color:var(--v)}
 .slot-sub{font-size:11px;color:var(--t3);margin-top:1px}
-/* menu resultado */
 .mc{background:var(--bg);border:.5px solid var(--bd);border-radius:var(--rad);padding:14px 16px;margin-bottom:10px}
 .mc-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
 .mc-dia{font-family:'Fraunces',serif;font-size:17px;font-weight:500;color:var(--t)}
@@ -123,41 +146,74 @@ input[type=text]:focus,select:focus{border-color:var(--vm)}
 .cb-prot{font-size:14px;font-weight:500;color:var(--t);margin-bottom:2px}
 .cb-ac{font-size:12px;color:var(--t2)}
 .cb-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
-/* postres */
-.ptipo-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
-.ptipo{border:.5px solid var(--bd);border-radius:var(--rads);padding:10px;text-align:center;cursor:pointer;transition:all .12s}
-.ptipo.sel{border-color:var(--pk);background:var(--pkl)}
-.ptipo-icon{font-size:22px;margin-bottom:3px}
-.ptipo-lbl{font-size:12px;font-weight:500;color:var(--t2)}
-.ptipo.sel .ptipo-lbl{color:var(--pk)}
-.dif-btns{display:flex;gap:6px;margin-bottom:14px}
-.dbtn{flex:1;padding:8px;border:.5px solid var(--bd);border-radius:var(--rads);background:transparent;font-size:12px;font-weight:500;color:var(--t3);cursor:pointer;font-family:'DM Sans',sans-serif;text-align:center;transition:all .12s}
-.dbtn.sel{background:var(--vl);border-color:var(--vm);color:var(--v)}
-/* install */
-.install-banner{display:none;align-items:center;gap:12px;background:var(--vl);border:.5px solid var(--vm);border-radius:var(--rad);padding:14px 16px;margin-bottom:16px}
-.install-banner.show{display:flex}
+
+/* P4 postres */
+.receta-card{background:var(--bg);border:.5px solid var(--bd);border-radius:var(--rad);padding:14px 16px;margin-bottom:10px;position:relative}
+.receta-del{position:absolute;top:12px;right:12px;background:none;border:none;font-size:16px;color:var(--t3);cursor:pointer}
+.receta-nombre{font-family:'Fraunces',serif;font-size:17px;font-weight:500;color:var(--t);margin-bottom:4px;padding-right:24px}
+.receta-meta{font-size:12px;color:var(--t3);margin-bottom:8px}
+.receta-ings{font-size:13px;color:var(--t2);line-height:1.6}
+
+/* install banner — resuelto con JS puro, sin CSS toggle */
+#install-banner{display:none;align-items:center;gap:12px;background:var(--vl);border:.5px solid var(--vm);border-radius:var(--rad);padding:14px 16px;margin-bottom:16px}
+
 /* toast */
-.toast{position:fixed;bottom:calc(var(--sb) + 80px);left:50%;transform:translateX(-50%) translateY(10px);background:#2C2C2A;color:#fff;padding:10px 18px;border-radius:20px;font-size:13px;white-space:nowrap;opacity:0;transition:opacity .2s,transform .2s;z-index:300;pointer-events:none}
+.toast{position:fixed;bottom:calc(var(--sb) + 80px);left:50%;transform:translateX(-50%) translateY(10px);background:#2C2C2A;color:#fff;padding:10px 18px;border-radius:20px;font-size:13px;white-space:nowrap;opacity:0;transition:opacity .2s,transform .2s;z-index:400;pointer-events:none}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.info-banner{background:var(--bg2);border-radius:var(--rads);padding:10px 14px;font-size:12px;color:var(--t3);margin-bottom:14px}
 </style>
 </head>
 <body>
-<div class="app">
+
+<!-- LOGIN -->
+<div class="login-screen" id="login-screen">
+  <div class="login-logo">🥗</div>
+  <div class="login-title">Menú Semanal</div>
+  <div class="login-sub">Ingresa con tu nombre de usuario y contraseña</div>
+
+  <div id="login-form">
+    <div class="login-input-wrap">
+      <input type="text" id="login-user" placeholder="Tu nombre (ej: Abuela)" autocomplete="username">
+    </div>
+    <div class="login-input-wrap">
+      <input type="password" id="login-pass" placeholder="Contraseña" autocomplete="current-password">
+    </div>
+    <button class="login-btn" onclick="doLogin()">Entrar</button>
+    <div class="login-err" id="login-err"></div>
+    <button class="login-btn" style="background:transparent;color:var(--v);border:.5px solid var(--vm)" onclick="showRegister()">Crear cuenta nueva</button>
+  </div>
+
+  <div id="register-form" style="display:none;width:100%;max-width:280px">
+    <div style="font-size:14px;color:var(--t2);margin-bottom:16px;text-align:center">Crea tu cuenta — tus datos quedarán guardados solo para ti</div>
+    <input type="text" id="reg-user" placeholder="Tu nombre (ej: Abuela)" style="margin-bottom:10px" autocomplete="username">
+    <input type="password" id="reg-pass" placeholder="Contraseña (mín. 4 caracteres)" style="margin-bottom:10px" autocomplete="new-password">
+    <input type="password" id="reg-pass2" placeholder="Repite la contraseña" style="margin-bottom:14px" autocomplete="new-password">
+    <button class="login-btn" onclick="doRegister()">Crear cuenta</button>
+    <div class="login-err" id="reg-err"></div>
+    <button style="background:none;border:none;color:var(--t3);font-size:13px;cursor:pointer;margin-top:8px;font-family:'DM Sans',sans-serif" onclick="showLogin()">← Volver al inicio de sesión</button>
+  </div>
+
+  <div class="login-hint">Cada usuario tiene sus propias recetas,<br>despensa y configuración.</div>
+</div>
+
+<!-- APP -->
+<div class="app" id="app" style="display:none">
   <div class="hdr">
     <div class="logo">🥗</div>
     <div>
       <div class="app-title">Menú Semanal</div>
       <div class="app-sub">Con ofertas Jumbo y tu despensa</div>
     </div>
+    <div class="hdr-user">
+      <div class="hdr-avatar" id="hdr-avatar" onclick="doLogout()" title="Cerrar sesión">?</div>
+    </div>
   </div>
 
   <div class="content">
 
-    <!-- P0 FOTO -->
+    <!-- P0 RECETAS (foto) -->
     <div class="panel active" id="panel-0">
       <div class="stitle">Foto de receta</div>
-      <div class="ssub">Saca o sube una foto y la IA extrae los ingredientes</div>
+      <div class="ssub">Sube una foto y la IA extrae los ingredientes para tu despensa</div>
       <input type="file" id="foto-input" accept="image/*" capture="environment" style="display:none">
       <img id="foto-preview">
       <div class="upload-area" id="upload-area" onclick="document.getElementById('foto-input').click()">
@@ -175,16 +231,14 @@ input[type=text]:focus,select:focus{border-color:var(--vm)}
         <div class="stitle">Mi despensa</div>
         <span style="font-size:13px;color:var(--t3)" id="desp-count"></span>
       </div>
-      <div class="ssub">Lo que tienes en casa</div>
-      <div style="margin-bottom:10px">
-        <select id="cat-sel">
-          <option value="proteina">🥩 Proteína</option>
-          <option value="vegetal">🥬 Vegetal / Fruta</option>
-          <option value="lacte">🧀 Lácteo</option>
-          <option value="cereal">🌾 Cereal / Legumbre</option>
-          <option value="otro">📦 Otro</option>
-        </select>
-      </div>
+      <div class="ssub">Lo que tienes en casa ahora</div>
+      <div style="margin-bottom:10px"><select id="cat-sel">
+        <option value="proteina">🥩 Proteína</option>
+        <option value="vegetal">🥬 Vegetal / Fruta</option>
+        <option value="lacte">🧀 Lácteo</option>
+        <option value="cereal">🌾 Cereal / Legumbre</option>
+        <option value="otro">📦 Otro</option>
+      </select></div>
       <div class="add-row">
         <input type="text" id="ing-inp" placeholder="Nombre del ingrediente...">
         <button onclick="addIng()">+ Agregar</button>
@@ -199,11 +253,11 @@ input[type=text]:focus,select:focus{border-color:var(--vm)}
       <div class="jumbo-bar">
         <div class="jumbo-pill">JUMBO</div>
         <div style="display:flex;align-items:center;gap:8px">
-          <span style="font-size:12px;color:var(--t3)" id="ofertas-fecha">Sin datos aún</span>
+          <span style="font-size:12px;color:var(--t3)" id="ofertas-fecha">Sin datos</span>
           <button class="refresh-btn" id="btn-refresh" onclick="cargarOfertas()"><span id="ricon">↻</span> Actualizar</button>
         </div>
       </div>
-      <div class="info-banner">💡 Toca <strong>Actualizar</strong> para obtener precios reales desde jumbo.cl</div>
+      <div class="info-banner">💡 Toca <strong>Actualizar</strong> para obtener precios reales de jumbo.cl</div>
       <div class="card" id="ofertas-list" style="padding:0 14px">
         <div style="padding:24px;text-align:center;color:var(--t3);font-size:14px">Toca Actualizar para cargar precios 🏷️</div>
       </div>
@@ -212,16 +266,16 @@ input[type=text]:focus,select:focus{border-color:var(--vm)}
 
     <!-- P3 PLANIFICAR -->
     <div class="panel" id="panel-3">
-      <div class="install-banner" id="install-banner">
+      <div id="install-banner">
         <div style="font-size:26px;flex-shrink:0">📲</div>
         <div style="flex:1">
           <div style="font-size:14px;font-weight:500;color:var(--vd)">Instalar en iPhone</div>
-          <div style="font-size:12px;color:var(--v);margin-top:2px">Toca Compartir (□↑) y "Agregar a inicio"</div>
+          <div style="font-size:12px;color:var(--v);margin-top:2px">Toca Compartir (□↑) → "Agregar a inicio"</div>
         </div>
-        <button onclick="dismissInstall()" style="background:none;border:none;color:var(--v);font-size:22px;cursor:pointer;padding:4px;line-height:1;flex-shrink:0">✕</button>
+        <button onclick="dismissInstall()" style="background:none;border:none;color:var(--v);font-size:24px;cursor:pointer;padding:6px;line-height:1;flex-shrink:0">✕</button>
       </div>
       <div class="stitle">Esta semana</div>
-      <div class="ssub">Activa almuerzo o cena por día, y si hace frío o calor</div>
+      <div class="ssub">Activa almuerzo o cena por día y si hace frío o calor</div>
       <div id="dias-cfg"></div>
       <button class="btn btn-g" style="margin:4px 0 16px" onclick="generarMenu()">Generar menú con IA →</button>
       <div id="menu-result"></div>
@@ -229,34 +283,23 @@ input[type=text]:focus,select:focus{border-color:var(--vm)}
 
     <!-- P4 POSTRES -->
     <div class="panel" id="panel-4">
-      <div class="stitle">Postre de la semana</div>
-      <div class="ssub">Uno bien rico para el fin de semana</div>
-      <div class="card">
-        <div class="lbl">Tipo de postre</div>
-        <div class="ptipo-grid" id="ptipo-grid">
-          <div class="ptipo sel" data-t="torta" onclick="selTipo(this)"><div class="ptipo-icon">🎂</div><div class="ptipo-lbl">Torta / Kuchen</div></div>
-          <div class="ptipo" data-t="mousse" onclick="selTipo(this)"><div class="ptipo-icon">🍮</div><div class="ptipo-lbl">Mousse / Flan</div></div>
-          <div class="ptipo" data-t="galletas" onclick="selTipo(this)"><div class="ptipo-icon">🍪</div><div class="ptipo-lbl">Galletas / Masas</div></div>
-          <div class="ptipo" data-t="frio" onclick="selTipo(this)"><div class="ptipo-icon">🍨</div><div class="ptipo-lbl">Postre frío</div></div>
-          <div class="ptipo" data-t="frutas" onclick="selTipo(this)"><div class="ptipo-icon">🍓</div><div class="ptipo-lbl">Con frutas</div></div>
-          <div class="ptipo" data-t="sorpresa" onclick="selTipo(this)"><div class="ptipo-icon">✨</div><div class="ptipo-lbl">Sorpréndeme</div></div>
+      <div class="stitle">Recetas de postres</div>
+      <div class="ssub">Tus recetas guardadas — sube una foto para agregar</div>
+
+      <!-- subir nueva receta de postre -->
+      <div class="card" style="margin-bottom:16px">
+        <div class="lbl">Agregar receta de postre</div>
+        <input type="file" id="postre-foto-input" accept="image/*" capture="environment" style="display:none">
+        <div id="postre-upload-area" class="upload-area" style="padding:20px;margin-bottom:10px" onclick="document.getElementById('postre-foto-input').click()">
+          <div style="font-size:28px;margin-bottom:6px">📷</div>
+          <div style="font-size:14px;color:var(--t2);font-weight:500">Foto de receta de postre</div>
+          <div style="font-size:12px;color:var(--t3);margin-top:3px">La IA extrae nombre e ingredientes</div>
         </div>
-        <div class="lbl">Para cuántas personas</div>
-        <select id="postre-pers" style="margin-bottom:14px">
-          <option value="4">4 personas</option>
-          <option value="6">6 personas</option>
-          <option value="8">8 personas</option>
-          <option value="10">10+ personas</option>
-        </select>
-        <div class="lbl">Dificultad</div>
-        <div class="dif-btns">
-          <button class="dbtn sel" data-d="facil" onclick="selDif(this)">Fácil</button>
-          <button class="dbtn" data-d="medio" onclick="selDif(this)">Medio</button>
-          <button class="dbtn" data-d="elaborado" onclick="selDif(this)">Elaborado</button>
-        </div>
-        <button class="btn btn-g" onclick="generarPostre()">Sugerir postre con IA →</button>
+        <img id="postre-preview" style="display:none;width:100%;max-height:160px;object-fit:cover;border-radius:var(--rads);margin-bottom:10px">
+        <button class="btn btn-g" id="btn-analizar-postre" disabled onclick="analizarPostre()">Agregar postre con IA →</button>
       </div>
-      <div id="postre-result"></div>
+
+      <div id="postres-lista"></div>
     </div>
 
   </div>
@@ -266,77 +309,192 @@ input[type=text]:focus,select:focus{border-color:var(--vm)}
     <button class="ni" onclick="goTab(1)"><div class="ni-icon">🧺</div><span>Despensa</span><div class="ni-dot"></div></button>
     <button class="ni" onclick="goTab(2)"><div class="ni-icon">🏷️</div><span>Ofertas</span><div class="ni-dot"></div></button>
     <button class="ni" onclick="goTab(3)"><div class="ni-icon">📅</div><span>Planificar</span><div class="ni-dot"></div></button>
-    <button class="ni" onclick="goTab(4)"><div class="ni-icon">🍮</div><span>Postre</span><div class="ni-dot"></div></button>
+    <button class="ni" onclick="goTab(4)"><div class="ni-icon">🍮</div><span>Postres</span><div class="ni-dot"></div></button>
   </nav>
 </div>
+
 <div class="toast" id="toast"></div>
 
 <script>
+// ═══════════════════════════════════════════════
+// STORAGE  — datos por usuario, en localStorage
+// clave:  menuapp_<usuario>_<dato>
+// ═══════════════════════════════════════════════
+const APP = 'menuapp_';
+let currentUser = null;
+
+function sKey(k){ return APP + currentUser + '_' + k; }
+
+function load(k, def){
+  try{ const v = localStorage.getItem(sKey(k)); return v ? JSON.parse(v) : def; }
+  catch(e){ return def; }
+}
+function store(k, v){
+  try{ localStorage.setItem(sKey(k), JSON.stringify(v)); }catch(e){}
+}
+
+// accounts are stored globally (not per-user)
+function getAccounts(){ try{ return JSON.parse(localStorage.getItem(APP+'accounts')||'{}'); }catch(e){ return {}; } }
+function saveAccounts(a){ try{ localStorage.setItem(APP+'accounts', JSON.stringify(a)); }catch(e){} }
+
+// simple hash (not crypto — just obfuscation for a family app)
+function simpleHash(s){ let h=5381; for(let i=0;i<s.length;i++) h=((h<<5)+h)+s.charCodeAt(i); return (h>>>0).toString(36); }
+
+// ═══════════════════════════════════════════════
+// LOGIN / REGISTER
+// ═══════════════════════════════════════════════
+function showLogin(){
+  document.getElementById('login-form').style.display='block';
+  document.getElementById('register-form').style.display='none';
+  document.getElementById('login-err').textContent='';
+}
+function showRegister(){
+  document.getElementById('login-form').style.display='none';
+  document.getElementById('register-form').style.display='block';
+  document.getElementById('reg-err').textContent='';
+}
+
+function doLogin(){
+  const user = document.getElementById('login-user').value.trim().toLowerCase();
+  const pass = document.getElementById('login-pass').value;
+  if(!user||!pass){ document.getElementById('login-err').textContent='Completa los campos'; return; }
+  const accounts = getAccounts();
+  if(!accounts[user]){ document.getElementById('login-err').textContent='Usuario no encontrado'; return; }
+  if(accounts[user] !== simpleHash(pass)){ document.getElementById('login-err').textContent='Contraseña incorrecta'; return; }
+  startSession(user);
+}
+
+function doRegister(){
+  const user = document.getElementById('reg-user').value.trim().toLowerCase();
+  const pass = document.getElementById('reg-pass').value;
+  const pass2 = document.getElementById('reg-pass2').value;
+  const err = document.getElementById('reg-err');
+  if(!user||!pass){ err.textContent='Completa los campos'; return; }
+  if(user.length < 2){ err.textContent='El nombre debe tener al menos 2 caracteres'; return; }
+  if(pass.length < 4){ err.textContent='La contraseña debe tener al menos 4 caracteres'; return; }
+  if(pass !== pass2){ err.textContent='Las contraseñas no coinciden'; return; }
+  const accounts = getAccounts();
+  if(accounts[user]){ err.textContent='Ese nombre ya existe, elige otro'; return; }
+  accounts[user] = simpleHash(pass);
+  saveAccounts(accounts);
+  toast('Cuenta creada ✓ Bienvenida');
+  startSession(user);
+}
+
+function startSession(user){
+  currentUser = user;
+  try{ localStorage.setItem(APP+'session', user); }catch(e){}
+  document.getElementById('login-screen').style.display='none';
+  document.getElementById('app').style.display='flex';
+  const initials = user.charAt(0).toUpperCase();
+  document.getElementById('hdr-avatar').textContent = initials;
+  initApp();
+}
+
+function doLogout(){
+  if(!confirm('¿Cerrar sesión?')) return;
+  currentUser = null;
+  try{ localStorage.removeItem(APP+'session'); }catch(e){}
+  document.getElementById('app').style.display='none';
+  document.getElementById('login-screen').style.display='flex';
+  document.getElementById('login-user').value='';
+  document.getElementById('login-pass').value='';
+  showLogin();
+}
+
+// check existing session on load
+function checkSession(){
+  try{
+    const saved = localStorage.getItem(APP+'session');
+    if(saved){
+      const accounts = getAccounts();
+      if(accounts[saved]){ startSession(saved); return; }
+    }
+  }catch(e){}
+  document.getElementById('login-screen').style.display='flex';
+}
+
+// ═══════════════════════════════════════════════
+// APP STATE (loaded per user after login)
+// ═══════════════════════════════════════════════
 const DIAS=['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
 const CAT_L={proteina:'Proteína',vegetal:'Vegetal',lacte:'Lácteo',cereal:'Cereal',otro:'Otro'};
 const CAT_C={proteina:'br',vegetal:'bv',lacte:'ba',cereal:'bb',otro:'bg-b'};
 
-let despensa=JSON.parse(localStorage.getItem('despensa')||JSON.stringify([
-  {nombre:'Arroz',cat:'cereal',qty:'1 kg'},{nombre:'Cebolla',cat:'vegetal',qty:'4 un'},
-  {nombre:'Ajo',cat:'vegetal',qty:'1 cabeza'},{nombre:'Tomate',cat:'vegetal',qty:'500 g'},
-  {nombre:'Huevos',cat:'proteina',qty:'6 un'},{nombre:'Queso laminado',cat:'lacte',qty:'200 g'},
-]));
+let despensa=[], diaConfig={}, ofertas=[], addedOf=new Set(), postres=[];
+let uploadedFile=null, uploadedPostreFile=null;
 
-let diaConfig=JSON.parse(localStorage.getItem('diaConfig')||JSON.stringify(
-  Object.fromEntries(DIAS.map(d=>[d,{temp:'caliente',slots:['almuerzo']}]))
-));
+function initApp(){
+  despensa = load('despensa', [
+    {nombre:'Arroz',cat:'cereal',qty:'1 kg'},{nombre:'Cebolla',cat:'vegetal',qty:'4 un'},
+    {nombre:'Ajo',cat:'vegetal',qty:'1 cabeza'},{nombre:'Tomate',cat:'vegetal',qty:'500 g'},
+    {nombre:'Huevos',cat:'proteina',qty:'6 un'},{nombre:'Queso laminado',cat:'lacte',qty:'200 g'},
+  ]);
+  diaConfig = load('diaConfig', Object.fromEntries(DIAS.map(d=>[d,{temp:'caliente',slots:['almuerzo']}])));
+  ofertas = load('ofertas', []);
+  addedOf = new Set(load('addedOf', []));
+  postres = load('postres', []);
 
-let ofertas=JSON.parse(localStorage.getItem('ofertas')||'[]');
-let addedOf=new Set(JSON.parse(localStorage.getItem('addedOf')||'[]'));
-let uploadedFile=null;
-let postreTipo='torta';
-let postreDif='facil';
-
-function save(){
-  localStorage.setItem('despensa',JSON.stringify(despensa));
-  localStorage.setItem('diaConfig',JSON.stringify(diaConfig));
-  localStorage.setItem('addedOf',JSON.stringify([...addedOf]));
+  renderDespensa();
+  renderDias();
+  renderPostres();
+  if(ofertas.length) renderOfertas();
+  checkInstall();
+  goTab(0);
 }
 
+function save(){
+  store('despensa', despensa);
+  store('diaConfig', diaConfig);
+  store('addedOf', [...addedOf]);
+  store('postres', postres);
+}
+
+// ═══════════════════════════════════════════════
+// NAV & TOAST
+// ═══════════════════════════════════════════════
 function goTab(i){
   document.querySelectorAll('.panel').forEach((p,j)=>p.classList.toggle('active',i===j));
   document.querySelectorAll('.ni').forEach((n,j)=>n.classList.toggle('active',i===j));
   document.querySelector('.content').scrollTop=0;
-  if(i===2&&ofertas.length===0)cargarOfertas();
+  if(i===2&&ofertas.length===0) cargarOfertas();
 }
 
 let toastT;
 function toast(m){
   const t=document.getElementById('toast');
-  t.textContent=m;t.classList.add('show');
-  clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2200);
+  t.textContent=m; t.classList.add('show');
+  clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('show'),2200);
 }
 
-// P0 FOTO
+// ═══════════════════════════════════════════════
+// P0 — FOTO DE RECETA
+// ═══════════════════════════════════════════════
 document.getElementById('foto-input').addEventListener('change',function(e){
-  const f=e.target.files[0];if(!f)return;
+  const f=e.target.files[0]; if(!f) return;
   uploadedFile=f;
   const img=document.getElementById('foto-preview');
-  img.src=URL.createObjectURL(f);img.style.display='block';
+  img.src=URL.createObjectURL(f); img.style.display='block';
   document.getElementById('upload-area').style.display='none';
   document.getElementById('btn-analizar').disabled=false;
 });
 
 async function analizarReceta(){
   const btn=document.getElementById('btn-analizar');
-  btn.disabled=true;btn.textContent='Analizando...';
+  btn.disabled=true; btn.textContent='Analizando...';
   document.getElementById('receta-result').innerHTML=`<div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div> Reconociendo ingredientes...</div>`;
   try{
-    const b64=await new Promise((ok,err)=>{const r=new FileReader();r.onload=()=>ok(r.result.split(',')[1]);r.onerror=err;r.readAsDataURL(uploadedFile);});
-    const resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:[{type:'image',source:{type:'base64',media_type:uploadedFile.type,data:b64}},{type:'text',text:'Imagen de receta de cocina. Extrae nombre y todos los ingredientes con cantidades. SOLO JSON sin backticks ni markdown: {"nombre":"...","porciones":"...","ingredientes":[{"nombre":"...","cantidad":"..."}]}'}]}]})});
-    const data=await resp.json();
-    const receta=JSON.parse(data.content.map(i=>i.text||'').join('').trim());
-    renderReceta(receta);
+    const b64=await toBase64(uploadedFile);
+    const resp=await callAI([{role:'user',content:[
+      {type:'image',source:{type:'base64',media_type:uploadedFile.type,data:b64}},
+      {type:'text',text:'Imagen de receta de cocina. Extrae nombre y todos los ingredientes con cantidades. SOLO JSON sin backticks: {"nombre":"...","porciones":"...","ingredientes":[{"nombre":"...","cantidad":"..."}]}'}
+    ]}]);
+    renderReceta(JSON.parse(resp));
   }catch(e){
-    renderReceta({nombre:'Pollo al horno con papas',porciones:'4',ingredientes:[{nombre:'Pechuga de pollo',cantidad:'600 g'},{nombre:'Papas',cantidad:'4 medianas'},{nombre:'Ajo',cantidad:'4 dientes'},{nombre:'Aceite de oliva',cantidad:'3 cdas'}]});
-    toast('Modo demo — sube foto real para IA');
+    renderReceta({nombre:'Pollo al horno con papas',porciones:'4',ingredientes:[{nombre:'Pechuga de pollo',cantidad:'600 g'},{nombre:'Papas',cantidad:'4 medianas'},{nombre:'Ajo',cantidad:'4 dientes'}]});
+    toast('Modo demo — sube una foto real para IA');
   }
-  btn.disabled=false;btn.textContent='Analizar con IA →';
+  btn.disabled=false; btn.textContent='Analizar con IA →';
 }
 
 function renderReceta(r){
@@ -345,21 +503,28 @@ function renderReceta(r){
       <div style="font-family:'Fraunces',serif;font-size:18px;font-weight:500;color:var(--t);margin-bottom:4px">${r.nombre}</div>
       ${r.porciones?`<div style="font-size:13px;color:var(--t3);margin-bottom:10px">Para ${r.porciones} personas</div>`:''}
       ${r.ingredientes.map(i=>`<div class="ing-row"><span>${i.nombre}</span><span style="color:var(--t3);font-size:13px">${i.cantidad}</span></div>`).join('')}
-      <button class="btn btn-g" style="margin-top:14px" onclick='addReceta(${JSON.stringify(r.ingredientes)})'>Agregar todo a la despensa</button>
+      <button class="btn btn-g" style="margin-top:14px" onclick='addReceta(${JSON.stringify(r.ingredientes)})'>Agregar a la despensa</button>
     </div>`;
 }
 
 function addReceta(ings){
   let n=0;
-  ings.forEach(i=>{if(!despensa.find(d=>d.nombre.toLowerCase()===i.nombre.toLowerCase())){despensa.push({nombre:i.nombre,cat:'otro',qty:i.cantidad});n++;}});
-  save();renderDespensa();toast(n>0?n+' ingredientes agregados ✓':'Ya estaban todos');
+  ings.forEach(i=>{
+    if(!despensa.find(d=>d.nombre.toLowerCase()===i.nombre.toLowerCase())){
+      despensa.push({nombre:i.nombre,cat:'otro',qty:i.cantidad}); n++;
+    }
+  });
+  save(); renderDespensa();
+  toast(n>0? n+' ingredientes agregados ✓' : 'Ya estaban todos en la despensa');
 }
 
-// P1 DESPENSA
+// ═══════════════════════════════════════════════
+// P1 — DESPENSA
+// ═══════════════════════════════════════════════
 function renderDespensa(){
   document.getElementById('desp-count').textContent=despensa.length+' ingredientes';
   const g=document.getElementById('desp-grid');
-  if(!despensa.length){g.innerHTML=`<div style="grid-column:span 2;text-align:center;padding:32px;color:var(--t3);font-size:14px">🧺 Despensa vacía</div>`;return;}
+  if(!despensa.length){ g.innerHTML=`<div style="grid-column:span 2;text-align:center;padding:32px;color:var(--t3);font-size:14px">🧺 Despensa vacía</div>`; return; }
   g.innerHTML=despensa.map((d,i)=>`
     <div class="ic">
       <button class="ic-del" onclick="delIng(${i})">✕</button>
@@ -369,60 +534,51 @@ function renderDespensa(){
     </div>`).join('');
 }
 
-function delIng(i){despensa.splice(i,1);save();renderDespensa();}
+function delIng(i){ despensa.splice(i,1); save(); renderDespensa(); }
 
 function addIng(){
-  const v=document.getElementById('ing-inp').value.trim();if(!v)return;
+  const v=document.getElementById('ing-inp').value.trim(); if(!v) return;
   const c=document.getElementById('cat-sel').value;
   despensa.push({nombre:v,cat:c,qty:''});
   document.getElementById('ing-inp').value='';
-  save();renderDespensa();toast(v+' agregado ✓');
+  save(); renderDespensa(); toast(v+' agregado ✓');
 }
-document.getElementById('ing-inp').addEventListener('keypress',e=>{if(e.key==='Enter')addIng();});
+document.getElementById('ing-inp').addEventListener('keypress',e=>{ if(e.key==='Enter') addIng(); });
 
-// P2 OFERTAS
+// ═══════════════════════════════════════════════
+// P2 — OFERTAS JUMBO
+// ═══════════════════════════════════════════════
 async function cargarOfertas(){
   const btn=document.getElementById('btn-refresh');
   const icon=document.getElementById('ricon');
-  icon.className='spinning';btn.disabled=true;
+  icon.className='spin'; btn.disabled=true;
   document.getElementById('ofertas-list').innerHTML=`<div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div> Consultando jumbo.cl...</div>`;
-
   try{
-    const resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
-      model:'claude-sonnet-4-20250514',max_tokens:1500,
-      tools:[{type:'web_search_20250305',name:'web_search'}],
-      messages:[{role:'user',content:'Busca en jumbo.cl Chile las ofertas actuales de carnes, aves, pescados y huevos. Necesito al menos 6 productos con su precio antes y precio oferta actual. Responde SOLO JSON sin backticks ni markdown: {"actualizado":"DD/MM/YYYY","productos":[{"emoji":"🍗","nombre":"Pechuga deshuesada","marca":"Super Pollo","unidad":"850 g","precio_antes":"$7.990","precio_ahora":"$6.990","descuento":"13%"}]}. Emojis: 🍗 pollo, 🥩 vacuno, 🐷 cerdo, 🐟 pescado, 🦐 mariscos, 🥚 huevos, 🐑 cordero'}]
-    })});
-    const data=await resp.json();
-    const txt=data.content.filter(b=>b.type==='text').map(b=>b.text).join('').trim().replace(/```json|```/g,'');
-    const parsed=JSON.parse(txt);
-    ofertas=parsed.productos||[];
-    localStorage.setItem('ofertas',JSON.stringify(ofertas));
-    const fecha=parsed.actualizado||new Date().toLocaleDateString('es-CL');
-    document.getElementById('ofertas-fecha').textContent='Actualizado '+fecha;
-    renderOfertas();
-    toast('Precios actualizados ✓');
+    const resp = await callAI([{role:'user',content:'Busca en jumbo.cl Chile las ofertas actuales de carnes, aves, pescados y huevos. Necesito al menos 6 productos con precio antes y precio oferta. SOLO JSON sin backticks: {"actualizado":"DD/MM/YYYY","productos":[{"emoji":"🍗","nombre":"...","marca":"...","unidad":"...","precio_antes":"$X.XXX","precio_ahora":"$X.XXX","descuento":"XX%"}]}. Emojis: 🍗 pollo, 🥩 vacuno, 🐷 cerdo, 🐟 pescado, 🦐 mariscos, 🥚 huevos'}], true);
+    const parsed = JSON.parse(resp);
+    ofertas = parsed.productos||[];
+    store('ofertas', ofertas);
+    document.getElementById('ofertas-fecha').textContent='Actualizado '+(parsed.actualizado||new Date().toLocaleDateString('es-CL'));
+    renderOfertas(); toast('Precios actualizados ✓');
   }catch(e){
-    // Precios reales obtenidos de jumbo.cl
     ofertas=[
-      {emoji:'🥩',nombre:'Carne Molida Vacuno 4% Grasa',marca:'Cuisine & Co',unidad:'500 g',precio_antes:'$7.690',precio_ahora:'Lleva 2 x $13.000',descuento:'15%'},
-      {emoji:'🥩',nombre:'Carne Molida Vacuno 10% Grasa',marca:'Cuisine & Co',unidad:'500 g',precio_antes:'$5.790',precio_ahora:'Lleva 2 x $10.000',descuento:'14%'},
+      {emoji:'🥩',nombre:'Carne Molida Vacuno 4% Grasa',marca:'Cuisine & Co',unidad:'500 g',precio_antes:'$7.690',precio_ahora:'2x$13.000',descuento:'15%'},
+      {emoji:'🥩',nombre:'Carne Molida Vacuno 10% Grasa',marca:'Cuisine & Co',unidad:'500 g',precio_antes:'$5.790',precio_ahora:'2x$10.000',descuento:'14%'},
       {emoji:'🐷',nombre:'Costillar Tradicional',marca:'Super Cerdo',unidad:'por kg',precio_antes:'$19.184/kg',precio_ahora:'$15.824/kg',descuento:'18%'},
-      {emoji:'🍗',nombre:'Pechuga Deshuesada',marca:'Super Pollo',unidad:'850 g aprox',precio_antes:'$7.990',precio_ahora:'$6.990',descuento:'13%'},
-      {emoji:'🍗',nombre:'Pechuga de Pollo Entera',marca:'Super Pollo',unidad:'por kg',precio_antes:'$5.841/kg',precio_ahora:'$5.121/kg',descuento:'12%'},
-      {emoji:'🥚',nombre:'Huevos Gallinas Libres Extra Color',marca:'Cuisine & Co',unidad:'20 un',precio_antes:'$8.270',precio_ahora:'$6.690',descuento:'19%'},
+      {emoji:'🍗',nombre:'Pechuga Deshuesada',marca:'Super Pollo',unidad:'850 g',precio_antes:'$7.990',precio_ahora:'$6.990',descuento:'13%'},
+      {emoji:'🍗',nombre:'Pechuga Entera',marca:'Super Pollo',unidad:'por kg',precio_antes:'$5.841/kg',precio_ahora:'$5.121/kg',descuento:'12%'},
+      {emoji:'🥚',nombre:'Huevos Gallinas Libres',marca:'Cuisine & Co',unidad:'20 un',precio_antes:'$8.270',precio_ahora:'$6.690',descuento:'19%'},
       {emoji:'🐟',nombre:'Atún Lomitos en Agua',marca:'Robinson Crusoe',unidad:'140g x3',precio_antes:'$5.970',precio_ahora:'$3.990',descuento:'33%'},
     ];
-    localStorage.setItem('ofertas',JSON.stringify(ofertas));
+    store('ofertas', ofertas);
     document.getElementById('ofertas-fecha').textContent='Referencia · jumbo.cl';
-    renderOfertas();
-    toast('Precios de referencia (verificar en jumbo.cl)');
+    renderOfertas(); toast('Precios de referencia (sin conexión)');
   }
-  icon.className='';btn.disabled=false;
+  icon.className=''; btn.disabled=false;
 }
 
 function renderOfertas(){
-  if(!ofertas.length){document.getElementById('ofertas-list').innerHTML='<div style="padding:20px;text-align:center;color:var(--t3)">Sin datos</div>';return;}
+  if(!ofertas.length){ document.getElementById('ofertas-list').innerHTML='<div style="padding:20px;text-align:center;color:var(--t3)">Sin datos</div>'; return; }
   document.getElementById('ofertas-list').innerHTML=ofertas.map((o,i)=>`
     <div class="oferta-row">
       <span class="of-emoji">${o.emoji||'🥩'}</span>
@@ -444,12 +600,14 @@ function renderOfertas(){
 }
 
 function addOferta(i){
-  const o=ofertas[i];addedOf.add(i);
-  if(!despensa.find(d=>d.nombre===o.nombre))despensa.push({nombre:o.nombre,cat:'proteina',qty:o.unidad});
-  save();renderDespensa();renderOfertas();toast(o.nombre+' en despensa ✓');
+  const o=ofertas[i]; addedOf.add(i);
+  if(!despensa.find(d=>d.nombre===o.nombre)) despensa.push({nombre:o.nombre,cat:'proteina',qty:o.unidad});
+  save(); renderDespensa(); renderOfertas(); toast(o.nombre+' en despensa ✓');
 }
 
-// P3 PLANIFICAR
+// ═══════════════════════════════════════════════
+// P3 — PLANIFICAR
+// ═══════════════════════════════════════════════
 function renderDias(){
   document.getElementById('dias-cfg').innerHTML=DIAS.map(dia=>{
     const c=diaConfig[dia]||{temp:'caliente',slots:['almuerzo']};
@@ -468,107 +626,85 @@ function renderDias(){
         <div class="cslot ${hasA?'on':''}" onclick="toggleSlot('${dia}','almuerzo')">
           <div class="slot-icon">☀️</div>
           <div class="slot-lbl">Almuerzo</div>
-          <div class="slot-sub">${hasA?'Activo — se cocina':'Toca para activar'}</div>
+          <div class="slot-sub">${hasA?'Activo':'Toca para activar'}</div>
         </div>
         <div class="cslot ${hasC?'on':''}" onclick="toggleSlot('${dia}','cena')">
           <div class="slot-icon">🌙</div>
           <div class="slot-lbl">Cena / Once</div>
-          <div class="slot-sub">${hasC?'Activo — se cocina':'Toca para activar'}</div>
+          <div class="slot-sub">${hasC?'Activo':'Toca para activar'}</div>
         </div>
       </div>
     </div>`;
   }).join('');
 }
 
-function setTemp(dia,temp){diaConfig[dia].temp=temp;save();renderDias();}
-
+function setTemp(dia,temp){ diaConfig[dia].temp=temp; save(); renderDias(); }
 function toggleSlot(dia,slot){
   const s=diaConfig[dia].slots;
   const idx=s.indexOf(slot);
-  if(idx>-1)s.splice(idx,1);else s.push(slot);
-  save();renderDias();
+  if(idx>-1) s.splice(idx,1); else s.push(slot);
+  save(); renderDias();
 }
 
 async function generarMenu(){
   const btn=document.querySelector('#panel-3 .btn-g');
-  btn.disabled=true;btn.textContent='Generando...';
-  document.getElementById('menu-result').innerHTML=`<div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div> Armando tu menú personalizado...</div>`;
+  btn.disabled=true; btn.textContent='Generando...';
+  document.getElementById('menu-result').innerHTML=`<div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div> Armando tu menú...</div>`;
 
   const conf=DIAS.map(d=>{
     const c=diaConfig[d];
-    const s=c.slots.length?c.slots.join(' y '):'ninguna (día libre)';
+    const s=c.slots.length? c.slots.join(' y ') : 'día libre';
     return `${d}: ${s}, clima ${c.temp==='caliente'?'caluroso':'frío'}`;
   }).join(' | ');
-  const desp=despensa.map(d=>d.nombre).join(', ')||'ingredientes básicos de cocina chilena';
-  const ofert=ofertas.length?ofertas.map(o=>o.nombre).join(', '):'carnes y pescados variados';
+  const desp=despensa.map(d=>d.nombre).join(', ')||'ingredientes básicos';
+  const ofert=ofertas.length? ofertas.map(o=>o.nombre).join(', ') : 'carnes variadas';
 
   try{
-    const resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
-      model:'claude-sonnet-4-20250514',max_tokens:2000,
-      messages:[{role:'user',content:`Eres experta en cocina chilena casera. Genera menú semanal.
+    const resp = await callAI([{role:'user',content:`Eres experta en cocina chilena casera. Genera menú semanal.
 Configuración: ${conf}
 Despensa: ${desp}
-Proteínas en oferta Jumbo: ${ofert}
+Proteínas con oferta Jumbo: ${ofert}
 
-REGLAS:
-- Cada comida SIEMPRE incluye proteína + ensalada O acompañamiento (ej: "Pollo a la plancha" + "Ensalada de tomate y lechuga")
-- Clima FRÍO → platos calientes: cazuelas, guisos, horneados, sopas, estofados
-- Clima CALUROSO → platos frescos o ligeros: ensalada con proteína fría/plancha, ceviche, carpaccio, wok rápido
-- Alternar proteínas entre días (no repetir misma dos días seguidos)
-- Aprovechar ofertas Jumbo cuando sea posible
-- Comidas caseras chilenas reales y variadas
-- Para días sin slots activos: pon null en almuerzo y cena
+REGLAS: Cada comida = proteína + ensalada o acompañamiento. Clima FRÍO → cazuelas/guisos/horneados. Clima CALUROSO → plancha/ensaladas con proteína/fresco. No repetir proteína dos días seguidos. Aprovechar ofertas.
 
-Responde SOLO JSON sin backticks:
-{"dias":{"Lunes":{"almuerzo":{"proteina":"Pollo a la plancha con limón","ensalada_o_acomp":"Ensalada de lechuga tomate y palta","usa_oferta":false},"cena":null},...}}`}]
-    })});
-    const data=await resp.json();
-    const txt=data.content.map(i=>i.text||'').join('').trim().replace(/```json|```/g,'');
-    renderMenu(JSON.parse(txt).dias);
+SOLO JSON sin backticks: {"dias":{"Lunes":{"almuerzo":{"proteina":"...","ensalada_o_acomp":"...","usa_oferta":true},"cena":null},...}}`}]);
+    renderMenu(JSON.parse(resp).dias);
   }catch(e){
-    const pCal=['Cazuela de vacuno','Pollo al horno','Pastel de papas','Merluza al horno','Guiso de lentejas con longaniza','Lomo a lo pobre'];
-    const pFri=['Pollo a la plancha con limón','Atún con ensalada','Reineta frita','Huevos revueltos con tomate','Pechuga con palta'];
-    const aCal=['Arroz graneado','Puré de papas','Papas cocidas con perejil','Fideos al mantequilla'];
-    const aFri=['Ensalada de lechuga y tomate','Ensalada mixta con aceitunas','Ensalada de pepino y cebolla'];
-    const fb={};let pi=0;
+    const pC=['Cazuela de vacuno','Pollo al horno','Pastel de papas','Merluza al horno','Guiso de lentejas','Lomo a lo pobre'];
+    const pF=['Pollo a la plancha con limón','Atún con ensalada','Reineta frita','Huevos con tomate','Pechuga con palta'];
+    const aC=['Arroz graneado','Puré de papas','Papas cocidas','Fideos con mantequilla'];
+    const aF=['Ensalada de lechuga y tomate','Ensalada mixta','Ensalada de pepino','Ensalada de zanahoria'];
+    const fb={}; let pi=0;
     DIAS.forEach(d=>{
-      const c=diaConfig[d];fb[d]={almuerzo:null,cena:null};
+      const c=diaConfig[d]; fb[d]={almuerzo:null,cena:null};
       ['almuerzo','cena'].forEach(s=>{
-        if(!c.slots.includes(s))return;
+        if(!c.slots.includes(s)) return;
         const fr=c.temp==='frio';
-        fb[d][s]={proteina:(fr?pFri:pCal)[pi%6],ensalada_o_acomp:(fr?aFri:aCal)[pi%4],usa_oferta:pi<3};
+        fb[d][s]={proteina:(fr?pF:pC)[pi%6],ensalada_o_acomp:(fr?aF:aC)[pi%4],usa_oferta:pi<3};
         pi++;
       });
     });
     renderMenu(fb);
   }
-  btn.disabled=false;btn.textContent='Generar menú con IA →';
+  btn.disabled=false; btn.textContent='Generar menú con IA →';
 }
 
 function renderMenu(dias){
-  const hayCosas=DIAS.some(d=>{const v=dias[d];return v&&(v.almuerzo||v.cena);});
-  if(!hayCosas){
-    document.getElementById('menu-result').innerHTML=`<div class="card" style="text-align:center;padding:20px;color:var(--t3)">Activa al menos un almuerzo o cena en algún día.</div>`;
-    return;
-  }
+  const hay=DIAS.some(d=>{const v=dias[d];return v&&(v.almuerzo||v.cena);});
+  if(!hay){ document.getElementById('menu-result').innerHTML=`<div class="card" style="text-align:center;padding:20px;color:var(--t3)">Activa al menos un almuerzo o cena en algún día.</div>`; return; }
   document.getElementById('menu-result').innerHTML=`
     <div style="font-family:'Fraunces',serif;font-size:18px;font-weight:500;color:var(--t);margin-bottom:12px">Tu menú esta semana</div>
     ${DIAS.map(dia=>{
-      const d=dias[dia]||{};const c=diaConfig[dia]||{temp:'caliente'};
-      if(!d.almuerzo&&!d.cena) return `
-        <div class="mc" style="opacity:.5">
-          <div class="mc-top"><span class="mc-dia">${dia}</span><span class="badge br">Día libre</span></div>
-          <div style="font-size:13px;color:var(--t3)">Sin cocinar ✌️</div>
-        </div>`;
+      const d=dias[dia]||{}; const c=diaConfig[dia]||{temp:'caliente'};
+      if(!d.almuerzo&&!d.cena) return `<div class="mc" style="opacity:.5"><div class="mc-top"><span class="mc-dia">${dia}</span><span class="badge br">Día libre</span></div><div style="font-size:13px;color:var(--t3)">Sin cocinar ✌️</div></div>`;
       const isFri=c.temp==='frio';
-      const slots=[{key:'almuerzo',icon:'☀️',label:'Almuerzo'},{key:'cena',icon:'🌙',label:'Cena / Once'}];
       return `<div class="mc">
         <div class="mc-top">
           <span class="mc-dia">${dia}</span>
           <span class="badge ${isFri?'bb':'br'}">${isFri?'❄️ Frío':'🔥 Caliente'}</span>
         </div>
-        ${slots.map(s=>{
-          const sv=d[s.key];if(!sv)return'';
+        ${[{key:'almuerzo',icon:'☀️',label:'Almuerzo'},{key:'cena',icon:'🌙',label:'Cena / Once'}].map(s=>{
+          const sv=d[s.key]; if(!sv) return '';
           return `<div class="cblock">
             <div class="cb-tipo">${s.icon} ${s.label}</div>
             <div class="cb-prot">${sv.proteina}</div>
@@ -581,89 +717,124 @@ function renderMenu(dias){
         }).join('')}
       </div>`;
     }).join('')}
-    <button class="btn btn-o" style="margin-top:4px" onclick="toast('Abre Claude y pídele: Dame las recetas del menú')">Ver recetas detalladas →</button>`;
+    <button class="btn btn-o" style="margin-top:4px" onclick="toast('Abre Claude y pídele las recetas detalladas del menú')">Ver recetas detalladas →</button>`;
 }
 
-// P4 POSTRES
-function selTipo(el){
-  document.querySelectorAll('.ptipo').forEach(p=>p.classList.remove('sel'));
-  el.classList.add('sel');postreTipo=el.dataset.t;
-}
+// ═══════════════════════════════════════════════
+// P4 — POSTRES (tus recetas)
+// ═══════════════════════════════════════════════
+document.getElementById('postre-foto-input').addEventListener('change',function(e){
+  const f=e.target.files[0]; if(!f) return;
+  uploadedPostreFile=f;
+  const img=document.getElementById('postre-preview');
+  img.src=URL.createObjectURL(f); img.style.display='block';
+  document.getElementById('postre-upload-area').style.display='none';
+  document.getElementById('btn-analizar-postre').disabled=false;
+});
 
-function selDif(el){
-  document.querySelectorAll('.dbtn').forEach(b=>b.classList.remove('sel'));
-  el.classList.add('sel');postreDif=el.dataset.d;
-}
-
-async function generarPostre(){
-  const btn=document.querySelector('#panel-4 .btn-g');
-  btn.disabled=true;btn.textContent='Buscando postre...';
-  document.getElementById('postre-result').innerHTML=`<div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div> Consultando a la IA...</div>`;
-
-  const personas=document.getElementById('postre-pers').value;
-  const tipoLabel={torta:'torta o kuchen',mousse:'mousse o flan',galletas:'galletas o masas',frio:'postre frío sin horno',frutas:'postre con frutas de temporada',sorpresa:'cualquier postre sorpresa'}[postreTipo];
-  const desp=despensa.map(d=>d.nombre).join(', ')||'ingredientes básicos';
-
+async function analizarPostre(){
+  const btn=document.getElementById('btn-analizar-postre');
+  btn.disabled=true; btn.textContent='Analizando...';
   try{
-    const resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
-      model:'claude-sonnet-4-20250514',max_tokens:800,
-      messages:[{role:'user',content:`Sugiere UN postre chileno o clásico de tipo: ${tipoLabel}. Para ${personas} personas. Dificultad: ${postreDif}. Despensa disponible: ${desp}. Responde SOLO JSON sin backticks: {"nombre":"...","descripcion":"...","tiempo":"...","ingredientes_clave":["...","...","..."],"ingredientes_comprar":["..."],"tip":"..."}`}]
-    })});
-    const data=await resp.json();
-    const txt=data.content.map(i=>i.text||'').join('').trim().replace(/```json|```/g,'');
-    renderPostre(JSON.parse(txt));
+    const b64=await toBase64(uploadedPostreFile);
+    const resp=await callAI([{role:'user',content:[
+      {type:'image',source:{type:'base64',media_type:uploadedPostreFile.type,data:b64}},
+      {type:'text',text:'Imagen de receta de postre. Extrae nombre, porciones, tiempo de preparación e ingredientes con cantidades. SOLO JSON sin backticks: {"nombre":"...","porciones":"...","tiempo":"...","ingredientes":[{"nombre":"...","cantidad":"..."}],"notas":"..."}'}
+    ]}]);
+    const receta=JSON.parse(resp);
+    postres.push(receta);
+    save(); renderPostres();
+    toast('Receta de postre guardada ✓');
+    // reset
+    document.getElementById('postre-preview').style.display='none';
+    document.getElementById('postre-upload-area').style.display='block';
+    document.getElementById('btn-analizar-postre').disabled=true;
+    uploadedPostreFile=null;
   }catch(e){
-    const fb={
-      torta:{nombre:'Kuchen de manzana',descripcion:'El clásico kuchen alemán-chileno con masa arenilla y manzanas caramelizadas con canela.',tiempo:'1h 20min',ingredientes_clave:['Harina','Mantequilla','Manzanas','Azúcar','Huevos','Canela'],ingredientes_comprar:['Manzanas'],tip:'La masa queda mejor si la enfríai 30 min antes de usarla'},
-      mousse:{nombre:'Mousse de manjar',descripcion:'Postre cremoso y suave con ese sabor inconfundible del manjar chileno.',tiempo:'30min + 2h frío',ingredientes_clave:['Manjar','Crema','Gelatina sin sabor'],ingredientes_comprar:['Manjar','Crema'],tip:'Batir la crema a punto nieve para que quede esponjoso'},
-      galletas:{nombre:'Alfajores de maicena',descripcion:'Las clásicas galletas suaves rellenas de manjar, el favorito de toda Chile.',tiempo:'45min',ingredientes_clave:['Maicena','Harina','Mantequilla','Manjar'],ingredientes_comprar:['Manjar'],tip:'No amasar demasiado para que queden tiernas y se deshagan'},
-      frio:{nombre:'Leche nevada',descripcion:'Postre fresco y liviano, perfecto para los días de calor.',tiempo:'20min + 2h frío',ingredientes_clave:['Leche','Huevos','Azúcar','Vainilla'],ingredientes_comprar:[],tip:'Servir bien frío con canela en polvo encima'},
-      frutas:{nombre:'Ensalada de frutas con crema',descripcion:'Frutas de temporada con crema batida y almíbar ligero, rápida y deliciosa.',tiempo:'20min',ingredientes_clave:['Frutas variadas','Crema','Azúcar','Limón'],ingredientes_comprar:['Frutas de temporada'],tip:'Agregar ralladura de naranja al almíbar para darle sabor especial'},
-      sorpresa:{nombre:'Arroz con leche',descripcion:'El postre más querido de Chile, cremoso, con canela y ese olor que llena la casa.',tiempo:'45min',ingredientes_clave:['Arroz','Leche','Azúcar','Canela','Vainilla'],ingredientes_comprar:[],tip:'Revolver constantemente a fuego bajo para que quede cremoso y no se pegue'},
-    };
-    renderPostre(fb[postreTipo]||fb.sorpresa);
+    postres.push({nombre:'Kuchen de manzana',porciones:'8',tiempo:'1h 20min',ingredientes:[{nombre:'Harina',cantidad:'2 tazas'},{nombre:'Mantequilla',cantidad:'150 g'},{nombre:'Manzanas',cantidad:'4'},{nombre:'Azúcar',cantidad:'1 taza'},{nombre:'Huevos',cantidad:'2'}],notas:'Enfriar la masa antes de usar'});
+    save(); renderPostres();
+    toast('Receta demo guardada — sube foto real para IA');
+    document.getElementById('postre-preview').style.display='none';
+    document.getElementById('postre-upload-area').style.display='block';
+    document.getElementById('btn-analizar-postre').disabled=true;
+    uploadedPostreFile=null;
   }
-  btn.disabled=false;btn.textContent='Sugerir postre con IA →';
+  btn.disabled=false; btn.textContent='Agregar postre con IA →';
 }
 
-function renderPostre(p){
-  document.getElementById('postre-result').innerHTML=`
-    <div class="card" style="border-color:var(--pk)">
-      <div style="font-family:'Fraunces',serif;font-size:20px;font-weight:500;color:var(--t);margin-bottom:6px">🍮 ${p.nombre}</div>
-      <div style="font-size:14px;color:var(--t2);margin-bottom:12px;line-height:1.6">${p.descripcion}</div>
-      <span class="badge bpk" style="margin-bottom:14px;display:inline-flex">⏱ ${p.tiempo}</span>
-      <div class="lbl" style="margin-top:8px">Ingredientes principales</div>
-      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px">
-        ${(p.ingredientes_clave||[]).map(i=>`<span class="badge bg-b">${i}</span>`).join('')}
-      </div>
-      ${p.ingredientes_comprar&&p.ingredientes_comprar.length?`
-        <div class="lbl">Necesitas comprar</div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px">
-          ${p.ingredientes_comprar.map(i=>`<span class="badge br">🛒 ${i}</span>`).join('')}
-        </div>`:`<div style="margin-bottom:12px"><span class="badge bv">✓ Tienes todo en casa</span></div>`}
-      ${p.tip?`<div style="background:var(--al);border-radius:var(--rads);padding:10px 14px;font-size:13px;color:var(--a)">💡 <b>Tip:</b> ${p.tip}</div>`:''}
-    </div>`;
+function renderPostres(){
+  const el=document.getElementById('postres-lista');
+  if(!postres.length){
+    el.innerHTML=`<div style="text-align:center;padding:32px;color:var(--t3);font-size:14px">🍮<br>Aún no tienes recetas de postres.<br>Sube una foto para agregar la primera.</div>`;
+    return;
+  }
+  el.innerHTML=`<div class="lbl" style="margin-bottom:10px">Mis recetas (${postres.length})</div>`+
+    postres.map((p,i)=>`
+      <div class="receta-card">
+        <button class="receta-del" onclick="delPostre(${i})">✕</button>
+        <div class="receta-nombre">🍮 ${p.nombre}</div>
+        <div class="receta-meta">${[p.porciones?'Para '+p.porciones+' personas':'',p.tiempo||''].filter(Boolean).join(' · ')}</div>
+        <div class="receta-ings">${p.ingredientes.map(i=>i.nombre+' — '+i.cantidad).join('<br>')}</div>
+        ${p.notas?`<div style="margin-top:8px;font-size:12px;color:var(--a);background:var(--al);padding:8px 10px;border-radius:var(--rads)">💡 ${p.notas}</div>`:''}
+      </div>`).join('');
 }
 
-// INSTALL
+function delPostre(i){ if(!confirm('¿Eliminar esta receta?')) return; postres.splice(i,1); save(); renderPostres(); }
+
+// ═══════════════════════════════════════════════
+// INSTALL BANNER — puro JS, sin clases CSS
+// ═══════════════════════════════════════════════
 function dismissInstall(){
-  document.getElementById('install-banner').classList.remove('show');
-  localStorage.setItem('installDismissed','1');
-}
-function checkInstall(){
-  const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
-  if(isIOS&&!window.navigator.standalone&&!localStorage.getItem('installDismissed'))
-    setTimeout(()=>document.getElementById('install-banner').classList.add('show'),1000);
+  document.getElementById('install-banner').style.display='none';
+  try{ localStorage.setItem(APP+'installDismissed','1'); }catch(e){}
 }
 
+function checkInstall(){
+  try{ if(localStorage.getItem(APP+'installDismissed')) return; }catch(e){}
+  const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent);
+  const isStandalone=window.navigator.standalone===true;
+  if(isIOS && !isStandalone){
+    setTimeout(()=>{
+      document.getElementById('install-banner').style.display='flex';
+    }, 800);
+  }
+}
+
+// ═══════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════
+function toBase64(file){
+  return new Promise((ok,err)=>{
+    const r=new FileReader();
+    r.onload=()=>ok(r.result.split(',')[1]);
+    r.onerror=err;
+    r.readAsDataURL(file);
+  });
+}
+
+async function callAI(messages, useSearch=false){
+  const body={model:'claude-sonnet-4-20250514',max_tokens:1500,messages};
+  if(useSearch) body.tools=[{type:'web_search_20250305',name:'web_search'}];
+  const resp=await fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(body)
+  });
+  const data=await resp.json();
+  const txt=data.content.filter(b=>b.type==='text').map(b=>b.text).join('').trim().replace(/```json|```/g,'');
+  return txt;
+}
+
+// ═══════════════════════════════════════════════
+// SERVICE WORKER
+// ═══════════════════════════════════════════════
 if('serviceWorker' in navigator)
   window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
 
-// INIT
-renderDespensa();
-renderDias();
-if(ofertas.length)renderOfertas();
-checkInstall();
+// ═══════════════════════════════════════════════
+// START
+// ═══════════════════════════════════════════════
+checkSession();
 </script>
 </body>
 </html>
